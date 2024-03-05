@@ -13,7 +13,7 @@
       <!--   编辑与删除   -->
       <el-table-column
         v-if="checkPer(['admin','job:edit','job:del'])"
-        label="操作"
+        label="操作1"
         width="130px"
         align="center"
         fixed="right"
