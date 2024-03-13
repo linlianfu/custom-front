@@ -7,8 +7,9 @@
     </div>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;"
-              @selection-change="crud.selectionChangeHandler">
-      <el-table-column type="index" label="序号" width="55"/>
+              @selection-change="crud.selectionChangeHandler"
+              border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
+      <el-table-column type="index" label="序号" width="55" align="center"/>
       <el-table-column prop="name" label="主题名称" width="355" align="center"/>
       <el-table-column prop="keyword" label="关键字" align="center"/>
       <el-table-column label="风险等级" align="center">
