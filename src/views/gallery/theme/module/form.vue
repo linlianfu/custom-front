@@ -5,17 +5,17 @@
     :before-close="crud.cancelCU"
     :visible="crud.status.cu > 0"
     :title="crud.status.title"
-    width="500px"
+    width="1000px"
   >
     <el-form
       ref="form"
       :model="form"
       :rules="rules"
-      size="small"
-      label-width="80px"
+      size="medium"
+      label-width="180px"
     >
       <el-form-item
-        label="名称"
+        label="主题名称"
         prop="name"
       >
         <el-input
@@ -23,31 +23,48 @@
           style="width: 370px;"
         />
       </el-form-item>
+
       <el-form-item
-        label="排序"
-        prop="jobSort"
+        label="关键字"
+        prop="keyword"
       >
-        <el-input-number
-          v-model.number="form.jobSort"
-          :min="0"
-          :max="999"
-          controls-position="right"
+        <el-input
+          v-model="form.keyword"
           style="width: 370px;"
         />
       </el-form-item>
+
       <el-form-item
-        v-if="form.pid !== 0"
-        label="状态"
-        prop="enabled"
+        label="风险等级"
+        prop="tortType"
       >
-        <el-radio
-          v-for="item in jobStatus"
-          :key="item.id"
-          v-model="form.enabled"
-          :label="item.value === 'true'"
-        >
-          {{ item.label }}
-        </el-radio>
+        <el-radio-group v-model="form.tortType" style="width: 478px">
+          <el-radio label="1">常规主题</el-radio>
+          <el-radio label="2">一般侵权</el-radio>
+          <el-radio label="3">资金冻结</el-radio>
+          <el-radio label="4">严重侵权</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
+        label="流量"
+        prop="flow"
+      >
+        <el-radio-group v-model="form.flow" style="width: 378px">
+          <el-radio label="1">常规主题</el-radio>
+          <el-radio label="2">爆款主题</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
+        label="备注"
+        prop="remark"
+      >
+        <el-input
+          v-model="form.remark"
+          style="width: 370px;"
+          type="textarea"
+        />
       </el-form-item>
     </el-form>
     <div
@@ -72,13 +89,15 @@
 </template>
 
 <script>
-import { form } from '@crud/crud'
+  import {form} from '@crud/crud'
 
-const defaultForm = {
+  const defaultForm = {
   id: null,
   name: '',
-  jobSort: 999,
-  enabled: true
+  keyword: '',
+  tortType: true,
+  flow: true,
+  remark: '',
 }
 export default {
   mixins: [form(defaultForm)],

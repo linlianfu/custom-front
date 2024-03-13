@@ -12,10 +12,11 @@
 </template>
 
 <script>
-import { header } from '@crud/crud'
-import rrOperation from '@crud/RR.operation'
-import DateRangePicker from '@/components/DateRangePicker'
-export default {
+  import {header} from '@crud/crud'
+  import rrOperation from '@crud/RR.operation'
+  import DateRangePicker from '@/components/DateRangePicker'
+
+  export default {
   components: { rrOperation, DateRangePicker },
   mixins: [header()],
   props: {

@@ -25,8 +25,7 @@
       <el-table-column prop="createdId" label="创建人" align="center"/>
       <!--   编辑与删除   -->
       <el-table-column
-        v-if="checkPer(['admin','job:edit','job:del'])"
-        label="操作1"
+        label="操作"
         width="130px"
         align="center"
         fixed="right"
@@ -47,7 +46,7 @@
 </template>
 
 <script>
-  import crudJob from '@/api/theme/tort'
+  import crudJob from '@/api/gallery/theme'
   import eHeader from './module/header'
   import eForm from './module/form'
   import CRUD, {presenter} from '@crud/crud'
@@ -62,7 +61,14 @@
       return CRUD({
         title: '主题管理',
         url: '/api/theme/page',
-        crudMethod: {...crudJob}
+        crudMethod: {...crudJob},
+        optShow: {
+          add: true,
+          edit: false,
+          del: false,
+          reset: false,
+          download :false
+        },
       })
     },
     mixins: [presenter()],
