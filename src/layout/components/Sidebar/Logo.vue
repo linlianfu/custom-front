@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import Logo from '@/assets/images/logo.png'
-export default {
+  import Logo from '@/assets/images/logo.png'
+
+  export default {
   name: 'SidebarLogo',
   props: {
     collapse: {
@@ -25,7 +26,7 @@ export default {
   },
   data() {
     return {
-      title: 'ELADMIN-后台管理',
+      title: '跨境定制-后台管理',
       logo: Logo
     }
   }
