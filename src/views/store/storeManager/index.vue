@@ -8,22 +8,29 @@
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;"
               @selection-change="crud.selectionChangeHandler"
-              border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
-      <el-table-column type="index" label="序号" width="55" align="center"/>
-      <el-table-column prop="name" label="主题名称" width="355" align="center"/>
-      <el-table-column prop="keyword" label="关键字" align="center"/>
-      <el-table-column label="风险等级" align="center">
+              border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
+              :cell-style="cellStyle">
+      <el-table-column type="index" width="55"/>
+      <el-table-column prop="storeName" label="店铺名称"/>
+      <el-table-column prop="legalPerson" label="法人"/>
+      <el-table-column prop="businessLicense" label="营业执照"/>
+      <el-table-column prop="registrationTime" label="注册时间"/>
+      <el-table-column prop="tortFraction" label="侵权扣分"/>
+      <el-table-column prop="seriousTrotCount" label="严重侵权次数"/>
+      <el-table-column prop="status" label="店铺状态">
         <template slot-scope="scope">
-          {{ parseTortType(scope.row.tortType) }}
+          <span>{{scope.row.status === 1 ? '运营中':'退出运营'}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="flow" label="流量等级" align="center">
+      <el-table-column prop="exitTime" label="退出时间"/>
+      <el-table-column prop="shopId" label="商户 id"/>
+      <el-table-column prop="platformType" label="所属平台">
         <template slot-scope="scope">
-          {{ parseFlow(scope.row.flow) }}
+          <span>{{scope.row.platformType === 1 ? '速卖通':'Temu'}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注" align="center"/>
-      <el-table-column prop="createdId" label="创建人" align="center"/>
+      <el-table-column prop="createTime" label="创建时间"/>
+      <el-table-column prop="createId" label="创建人"/>
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
@@ -47,7 +54,7 @@
 </template>
 
 <script>
-  import crudJob from '@/api/gallery/theme'
+  import crudJob from '@/api/store/storeManager'
   import eHeader from './module/header'
   import eForm from './module/form'
   import CRUD, {presenter} from '@crud/crud'
@@ -55,20 +62,34 @@
   import pagination from '@crud/Pagination'
   import udOperation from '@crud/UD.operation'
 
+  const defaultForm = {
+    stId: null,
+    storeName: null,
+    legalPerson: null,
+    businessLicense: null,
+    registrationTime: null,
+    tortFraction: null,
+    seriousTrotCount: null,
+    status: null,
+    exitTime: null,
+    shopId: null,
+    platformType: null
+  }
+
   export default {
-    name: 'Theme',
+    name: 'StoreManager',
     components: {eHeader, eForm, crudOperation, pagination, udOperation},
     cruds() {
       return CRUD({
-        title: '主题管理',
-        url: '/api/theme/page',
+        title: '店铺管理',
+        url: '/api/store',
         crudMethod: {...crudJob},
         optShow: {
           add: true,
           edit: false,
           del: false,
           reset: false,
-          download :false
+          download: false
         },
       })
     },
@@ -81,6 +102,9 @@
           add: ['admin', 'job:add'],
           edit: ['admin', 'job:edit'],
           del: ['admin', 'job:del']
+        },
+        cellStyle({row, column, rowIndex, columnIndex}) {
+          return {'text-align': 'center'};
         }
       }
     },
@@ -104,12 +128,23 @@
           data.enabled = !data.enabled
         })
       },
+
+      [CRUD.HOOK.afterValidateCU](crud) {
+        if (crud.form.status === 2 && crud.form.exitTime === null) {
+          this.$message({
+            message: '请选择退出时间',
+            type: 'warning'
+          });
+          return false
+        }
+        return true
+      },
       /**
        * 解析风险类型
        * 1、 常规主题 2、一般侵权 3、资金冻结 4、严重侵权
        * @returns {number}
        */
-        parseTortType(tortType) {
+      parseTortType(tortType) {
         switch (tortType) {
           case 1:
             return "常规主题";
@@ -129,11 +164,11 @@
        * @param flow
        * @returns {string}
        */
-      parseFlow(flow){
-          if (flow === 1){
-            return "常规主题";
-          }else
-            return "爆款主题";
+      parseFlow(flow) {
+        if (flow === 1) {
+          return "常规主题";
+        } else
+          return "爆款主题";
       }
     }
   }

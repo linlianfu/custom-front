@@ -25,7 +25,7 @@
       </el-form-item>
 
       <el-form-item
-        label="关键字"
+        label="关键词"
         prop="keyword"
       >
         <el-input
@@ -39,10 +39,10 @@
         prop="tortType"
       >
         <el-radio-group v-model="form.tortType" style="width: 478px">
-          <el-radio label="1">常规主题</el-radio>
-          <el-radio label="2">一般侵权</el-radio>
-          <el-radio label="3">资金冻结</el-radio>
-          <el-radio label="4">严重侵权</el-radio>
+          <el-radio :label="1">常规主题</el-radio>
+          <el-radio :label="2">一般侵权</el-radio>
+          <el-radio :label="3">资金冻结</el-radio>
+          <el-radio :label="4">严重侵权</el-radio>
         </el-radio-group>
       </el-form-item>
 
@@ -51,8 +51,8 @@
         prop="flow"
       >
         <el-radio-group v-model="form.flow" style="width: 378px">
-          <el-radio label="1">常规主题</el-radio>
-          <el-radio label="2">爆款主题</el-radio>
+          <el-radio :label="1">常规主题</el-radio>
+          <el-radio :label="2">爆款主题</el-radio>
         </el-radio-group>
       </el-form-item>
 
@@ -95,26 +95,26 @@
   id: null,
   name: '',
   keyword: '',
-  tortType: true,
-  flow: true,
+  tortType: null,
+  flow: null,
   remark: '',
 }
 export default {
   mixins: [form(defaultForm)],
-  props: {
-    jobStatus: {
-      type: Array,
-      required: true
-    }
-  },
   data() {
     return {
       rules: {
         name: [
           { required: true, message: '请输入名称', trigger: 'blur' }
         ],
-        jobSort: [
-          { required: true, message: '请输入序号', trigger: 'blur', type: 'number' }
+        keyword: [
+          { required: true, message: '请输入关键词', trigger: 'blur'}
+        ],
+        tortType: [
+          { required: true, message: '请选择风险等级', trigger: 'change' }
+        ],
+        flow: [
+          { required: true, message: '请选择流量', trigger: 'change' }
         ]
       }
     }
