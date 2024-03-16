@@ -57,6 +57,26 @@ export const constantRouterMap = [
         meta: { title: '个人中心' }
       }
     ]
+  },
+  {
+    path: '/store1 ',
+    component: Layout,
+    hidden: true,
+    name:"店铺主题",
+    children: [
+      {
+        path: '/store/store-theme',
+        component: (resolve) => require(['@/views/store/storeTheme/index'], resolve),
+        name: '店铺主题',
+        meta: { title: '店铺主题' },
+      },
+      {
+        path: '/store/store-theme/add',
+        component: (resolve) => require(['@/views/store/storeTheme/add'], resolve),
+        name: '店铺主题登记',
+        meta: { title: '店铺主题登记' }
+      }
+    ]
   }
 ]
 

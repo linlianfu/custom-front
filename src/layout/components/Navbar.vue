@@ -1,5 +1,15 @@
 <template>
   <div class="navbar">
+    <!--<div>-->
+      <!--<el-card class="box-card">-->
+        <!--<div style="color: #666;font-size: 13px;">-->
+          <!--<svg-icon icon-class="system" style="margin-right: 5px" />-->
+          <!--<span>-->
+                <!--欢迎来到 Super Custom 中心-->
+          <!--</span>-->
+        <!--</div>-->
+      <!--</el-card>-->
+    <!--</div>-->
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
@@ -50,16 +60,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
-import Doc from '@/components/Doc'
-import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
-import Search from '@/components/HeaderSearch'
-import Avatar from '@/assets/images/avatar.png'
+  import {mapGetters} from 'vuex'
+  import Breadcrumb from '@/components/Breadcrumb'
+  import Hamburger from '@/components/Hamburger'
+  import Doc from '@/components/Doc'
+  import Screenfull from '@/components/Screenfull'
+  import SizeSelect from '@/components/SizeSelect'
+  import Search from '@/components/HeaderSearch'
+  import Avatar from '@/assets/images/avatar.png'
 
-export default {
+  export default {
   components: {
     Breadcrumb,
     Hamburger,

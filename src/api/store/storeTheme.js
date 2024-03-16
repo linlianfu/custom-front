@@ -1,15 +1,8 @@
 import request from '@/utils/request'
 
-export function pageStore(data) {
-  return request({
-    url: 'api/store',
-    method: 'get',
-    data
-  })
-}
 export function add(data) {
   return request({
-    url: 'api/store',
+    url: 'api/storeTheme',
     method: 'post',
     data
   })
@@ -17,7 +10,7 @@ export function add(data) {
 
 export function del(ids) {
   return request({
-    url: 'api/store',
+    url: 'api/storeTheme',
     method: 'delete',
     data: ids
   })
@@ -25,10 +18,10 @@ export function del(ids) {
 
 export function edit(data) {
   return request({
-    url: 'api/store',
+    url: 'api/storeTheme',
     method: 'put',
     data
   })
 }
 
-export default { pageStore,add, edit, del }
+export default { add, edit, del }
