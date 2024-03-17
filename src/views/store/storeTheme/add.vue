@@ -115,8 +115,6 @@
         this.showStore = true;
       },
       doSubmit() {
-        console.log(storeTheme)
-        debugger
         storeTheme.add({
           storeId: "1768644093925756930",
           themeId: "16f7ac6d850f9b05aaffe24c035a9faf"
