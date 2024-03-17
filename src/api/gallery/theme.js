@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function pageTheme(data) {
+  return request({
+    url: 'api/theme/page',
+    method: 'get',
+    data
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/theme',
@@ -24,4 +32,4 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export default { pageTheme,add, edit, del }

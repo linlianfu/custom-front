@@ -4,6 +4,7 @@
     <div class="head-container">
       <eHeader :dict="dict" :permission="permission"/>
       <!--<crudOperation :permission="permission"/>-->
+      <crudOperation :permission="permission"/>
       <el-button
         class="filter-item"
         size="mini"
@@ -73,7 +74,7 @@
         url: '/api/storeTheme',
         crudMethod: {...crudStoreTheme},
         optShow: {
-          add: true,
+          add: false,
           edit: false,
           del: false,
           reset: false,
