@@ -33,6 +33,16 @@
           <el-radio :label="4">严重侵权</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="侵权时间" prop="tortTime">
+        <el-date-picker
+          v-model="form.tortTime"
+          align="right"
+          type="date"
+          placeholder="请选择侵权时间"
+          :picker-options="pickerOptions"
+          value-format="yyyy-MM-dd">
+        </el-date-picker>
+      </el-form-item>
       <el-button :loading="loading" style="margin-left:40%;margin-bottom: 30px" size="medium"
                  type="primary" @click="doSubmit">保存
       </el-button>

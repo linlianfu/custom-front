@@ -11,7 +11,7 @@
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="55" align="center"/>
       <el-table-column prop="name" label="主题名称" width="355" align="center"/>
-      <el-table-column prop="keyword" label="关键字" align="center"/>
+      <el-table-column prop="keyword" label="关键词" align="center"/>
       <el-table-column label="风险等级" align="center">
         <template slot-scope="scope">
           {{ parseTortType(scope.row.tortType) }}
@@ -78,9 +78,6 @@
     data() {
       return {
         permission: {
-          add: ['admin', 'job:add'],
-          edit: ['admin', 'job:edit'],
-          del: ['admin', 'job:del']
         }
       }
     },

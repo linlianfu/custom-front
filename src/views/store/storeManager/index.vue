@@ -99,9 +99,6 @@
     data() {
       return {
         permission: {
-          add: ['admin', 'job:add'],
-          edit: ['admin', 'job:edit'],
-          del: ['admin', 'job:del']
         },
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
