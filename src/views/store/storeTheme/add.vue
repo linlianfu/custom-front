@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" :rules="rules" style="margin: 6px 20%" size="small" label-width="120px">
-      <el-form-item label="店铺" prop="store">
-        <el-input v-model="form.subject" style="width: 646px" placeholder="请选择店铺" @focus="openStoreDialog"/>
+      <el-form-item label="店铺" prop="storeName">
+        <el-input v-model="form.storeName" style="width: 646px" placeholder="请选择店铺" @focus="openStoreDialog"/>
       </el-form-item>
       <el-form-item label="主题" prop="theme">
-        <el-input v-model="form.tos" style="width: 646px" placeholder="请选择主题"/>
+        <el-input v-model="form.themeId" style="width: 646px" placeholder="请选择主题"/>
       </el-form-item>
       <el-form-item label="上架时间" prop="upTime">
         <el-date-picker
@@ -18,19 +18,19 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="上架产品数量" prop="productCount">
-        <el-input v-model="form.productCount" style="width: 646px" placeholder="请输入上架产品数量"/>
+        <el-input v-model.number="form.productCount" style="width: 646px" placeholder="请输入上架产品数量"/>
       </el-form-item>
       <el-form-item label="是否侵权" prop="tort">
         <el-radio-group v-model="form.tort">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
+          <el-radio :label="0">是</el-radio>
+          <el-radio :label="1">否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="侵权类型" prop="tortType">
         <el-radio-group v-model="form.tortType">
-          <el-radio :label="1">一般侵权</el-radio>
-          <el-radio :label="2">资金冻结</el-radio>
-          <el-radio :label="3">严重侵权</el-radio>
+          <el-radio :label="2">一般侵权</el-radio>
+          <el-radio :label="3">资金冻结</el-radio>
+          <el-radio :label="4">严重侵权</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-button :loading="loading" style="margin-left:40%;margin-bottom: 30px" size="medium"
@@ -47,7 +47,7 @@
       @close="showStore = false"
       title="我的店铺"
       width="1000px">
-      <store-page/>
+      <store-page @chooseStore="handleChooseStore"/>
     </el-dialog>
   </div>
 </template>
@@ -64,11 +64,26 @@
     components: {StorePage},
     data() {
       return {
-        loading: false, form: {subject: '', tos: '', content: ''},
+        loading: false,
         showStore: false,
+        theme:null,
+        // 登记店铺主题  表单数据
+        form:{
+          storeName:null, // rules校验，需要通过视图层更新，才能校验得到
+          storeId:null,
+          themeId:null,
+          upTime:null,
+          productCount:null,
+          // 是否侵权 0：否  1：是
+          tort:null,
+          // 侵权类型 2、一般侵权 3、资金冻结 4、严重侵权
+          tortType:null,
+          tortTime:null,
+        },
         rules: {
-          store: [
-            {required: true, message: '请选择店铺', trigger: 'blur'}
+          // prop 应该是指表单数据模型（data）中的属性名称。
+          storeName: [
+            {required: true, message: '请选择店铺', trigger: 'change'}
           ],
           theme: [
             {required: true, message: '请选择主题', trigger: 'blur'}
@@ -113,6 +128,14 @@
     methods: {
       openStoreDialog() {
         this.showStore = true;
+      },
+      /**
+       * 处理选择店铺时间
+       */
+      handleChooseStore(storeId,storeName) {
+        this.showStore = false;
+        this.form.storeName = storeName;
+        this.form.storeId = storeId;
       },
       doSubmit() {
         storeTheme.add({

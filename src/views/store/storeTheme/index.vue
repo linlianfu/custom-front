@@ -3,7 +3,7 @@
     <!--工具栏-->
     <div class="head-container">
       <eHeader :dict="dict" :permission="permission"/>
-      <crudOperation :permission="permission"/>
+      <!--<crudOperation :permission="permission"/>-->
       <el-button
         class="filter-item"
         size="mini"
@@ -11,7 +11,7 @@
         icon="el-icon-plus"
         @click="goCreate"
       >
-        新增2
+        新增
       </el-button>
     </div>
     <!--表格渲染-->

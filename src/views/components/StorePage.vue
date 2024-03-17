@@ -3,7 +3,8 @@
     <div style="max-width: 1000px;margin: 10px auto">
       <el-table ref="table" style="width: 100%;"
                 v-loading="loading" :data="storeList"
-                border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
+                border
+                :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
                 :cell-style="cellStyle">
         <el-table-column type="index" width="55"/>
         <el-table-column prop="storeName" label="店铺名称"/>
@@ -19,6 +20,9 @@
           align="center"
           fixed="right"
         >
+          <template slot-scope="scope">
+            <el-button size="medium" type="primary" @click="chooseStore(scope.row)">选择</el-button>
+          </template>
         </el-table-column>
       </el-table>
       <!--分页组件-->
@@ -35,22 +39,25 @@
   import storeManager from '@/api/store/storeManager'
 
   export default {
-    props:{
-
-   },
+    props: {},
     data() {
       return {
-        loading:true,
-        storeList:[],
+        loading: true,
+        storeList: [],
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
         }
       }
     },
 
-    mounted: function() {
+    methods: {
+      chooseStore(data) {
+        this.$emit("chooseStore", data.id, data.storeName)
+      }
+    },
+    mounted: function () {
 
-      storeManager.pageStore({}).then( res => {
+      storeManager.pageStore({}).then(res => {
         this.loading = false
         this.storeList = res.content;
       })
@@ -68,11 +75,11 @@
       width: calc(50% - 30px); /* 每行宽度为50%，减去间隔为20px */
       margin-bottom: 20px;
     }
-    .el-input{
+    .el-input {
       margin-right: 0;
       width: 170%;
     }
-    .el-date-picker{
+    .el-date-picker {
       margin-right: 0;
       width: 170%;
     }
