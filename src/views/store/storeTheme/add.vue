@@ -43,6 +43,12 @@
           value-format="yyyy-MM-dd">
         </el-date-picker>
       </el-form-item>
+      <el-form-item label="知识产权名称" prop="intellectualPropertyName">
+        <el-input v-model="form.intellectualPropertyName" style="width: 646px" placeholder="请输入备注"/>
+      </el-form-item>
+      <el-form-item label="备注" prop="remark">
+        <el-input v-model="form.remark" style="width: 646px" placeholder="请输入备注"/>
+      </el-form-item>
       <el-button :loading="loading" style="margin-left:40%;margin-bottom: 30px" size="medium"
                  type="primary" @click="doSubmit">保存
       </el-button>

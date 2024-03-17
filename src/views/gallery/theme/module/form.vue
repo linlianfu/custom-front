@@ -36,9 +36,9 @@
 
       <el-form-item
         label="风险等级"
-        prop="tortType"
+        prop="riskType"
       >
-        <el-radio-group v-model="form.tortType" style="width: 478px">
+        <el-radio-group v-model="form.riskType" style="width: 478px">
           <el-radio :label="1">常规主题</el-radio>
           <el-radio :label="2">一般侵权</el-radio>
           <el-radio :label="3">资金冻结</el-radio>
@@ -95,7 +95,7 @@
   id: null,
   name: '',
   keyword: '',
-  tortType: null,
+  riskType: null,
   flow: null,
   remark: '',
 }
@@ -110,7 +110,7 @@ export default {
         keyword: [
           { required: true, message: '请输入关键词', trigger: 'blur'}
         ],
-        tortType: [
+        riskType: [
           { required: true, message: '请选择风险等级', trigger: 'change' }
         ],
         flow: [

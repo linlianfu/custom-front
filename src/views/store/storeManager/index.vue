@@ -10,7 +10,7 @@
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
               :cell-style="cellStyle">
-      <el-table-column type="index" width="55"/>
+      <el-table-column type="index" width="55" label="序号"/>
       <el-table-column prop="storeName" label="店铺名称"/>
       <el-table-column prop="legalPerson" label="法人"/>
       <el-table-column prop="businessLicense" label="营业执照"/>

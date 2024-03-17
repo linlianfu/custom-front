@@ -14,7 +14,7 @@
       <el-table-column prop="keyword" label="关键词" align="center"/>
       <el-table-column label="风险等级" align="center">
         <template slot-scope="scope">
-          {{ parseTortType(scope.row.tortType) }}
+          {{ parseRiskType(scope.row.riskType) }}
         </template>
       </el-table-column>
       <el-table-column prop="flow" label="流量等级" align="center">
@@ -106,8 +106,8 @@
        * 1、 常规主题 2、一般侵权 3、资金冻结 4、严重侵权
        * @returns {number}
        */
-        parseTortType(tortType) {
-        switch (tortType) {
+        parseRiskType(riskType) {
+        switch (riskType) {
           case 1:
             return "常规主题";
           case 2:

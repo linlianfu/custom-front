@@ -23,7 +23,7 @@
               :cell-style="cellStyle">
       <el-table-column type="index" width="55"/>
       <el-table-column prop="storeName" label="店铺"/>
-      <el-table-column prop="themeName" label="主题"/>
+      <el-table-column prop="themeName" label="主题" title="themeName"/>
       <el-table-column prop="upTime" label="上架时间"/>
       <el-table-column prop="productCount" label="上架产品数量"/>
       <el-table-column prop="tort" label="是否侵权">
@@ -37,12 +37,14 @@
         </template>
       </el-table-column>
       <el-table-column prop="tortTime" label="侵权时间"/>
+      <el-table-column prop="intellectualPropertyName" label="知识产权名称"/>
       <el-table-column label="是否删除"/>
       <el-table-column prop="status" label="系统提示">
         <span>严重侵权</span>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间"/>
-      <el-table-column prop="createId" label="创建人"/>
+      <el-table-column prop="remark" label="备注"/>
+      <!--<el-table-column prop="createTime" label="创建时间"/>-->
+      <!--<el-table-column prop="createId" label="创建人"/>-->
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
@@ -136,10 +138,12 @@
           case 1:
             return "常规主题";
           case 2:
-            return '一般侵权';
+            return '知产平台治理-一般侵权';
           case 3:
-            return '资金冻结';
+            return '知识产权-一般侵权';
           case 4:
+            return '资金冻结';
+          case 5:
             return '严重侵权';
           default:
             return '未识别';

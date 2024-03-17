@@ -42,13 +42,14 @@
 </template>
 
 <script>
-import { encrypt } from '@/utils/rsaEncrypt'
-import Config from '@/settings'
-import { getCodeImg } from '@/api/login'
-import Cookies from 'js-cookie'
-import qs from 'qs'
-import Background from '@/assets/images/background.jpeg'
-export default {
+  import {encrypt} from '@/utils/rsaEncrypt'
+  import Config from '@/settings'
+  import {getCodeImg} from '@/api/login'
+  import Cookies from 'js-cookie'
+  import qs from 'qs'
+  import Background from '@/assets/images/background.jpeg'
+
+  export default {
   name: 'Login',
   data() {
     return {
@@ -56,8 +57,8 @@ export default {
       codeUrl: '',
       cookiePass: '',
       loginForm: {
-        username: 'admin',
-        password: '123456',
+        username: '',
+        password: '',
         rememberMe: false,
         code: '',
         uuid: ''
