@@ -2,7 +2,7 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <eHeader :tort-type-list="tortTypeList" :permission="permission"/>
+      <eHeader :tort-type-list="tortTypeList" :risk-type-list="riskTypeList" :permission="permission"/>
       <!--<crudOperation :permission="permission"/>-->
       <crudOperation :permission="permission"/>
       <el-button
@@ -24,6 +24,11 @@
       <el-table-column type="index" width="55"/>
       <el-table-column prop="storeName" label="店铺"/>
       <el-table-column prop="themeName" label="主题" title="themeName"/>
+      <el-table-column prop="riskType" label="主题风险">
+        <template slot-scope="scope">
+          {{ parseRiskType(scope.row.riskType) }}
+        </template>
+      </el-table-column>
       <el-table-column prop="upTime" label="上架时间"/>
       <el-table-column prop="productCount" label="上架产品数量"/>
       <el-table-column prop="tort" label="是否侵权">
@@ -38,10 +43,10 @@
       </el-table-column>
       <el-table-column prop="tortTime" label="侵权时间"/>
       <el-table-column prop="intellectualPropertyName" label="知识产权名称"/>
-      <el-table-column label="是否删除"/>
-      <el-table-column prop="status" label="系统提示">
-        <span>严重侵权</span>
-      </el-table-column>
+      <!--<el-table-column label="是否删除"/>-->
+      <!--<el-table-column prop="status" label="系统提示">-->
+        <!--<span>严重侵权</span>-->
+      <!--</el-table-column>-->
       <el-table-column prop="remark" label="备注"/>
       <!--<el-table-column prop="createTime" label="创建时间"/>-->
       <!--<el-table-column prop="createId" label="创建人"/>-->
@@ -108,18 +113,31 @@
           label: '请选择侵权类型'
         }, {
           value: 1,
+          label: '知产平台治理-一般侵权'
+        }, {
+          value: 2,
+          label: '知识产权-一般侵权'
+        }, {
+          value: 3,
+          label: '资金冻结'
+        }, {
+          value: 4,
+          label: '严重侵权'
+        }],
+        riskTypeList: [{
+          value: null,
+          label: '请选择侵权类型'
+        }, {
+          value: 1,
           label: '常规主题'
         }, {
           value: 2,
-          label: '知产平台治理-一般侵权'
+          label: '一般侵权'
         }, {
           value: 3,
-          label: '知识产权-一般侵权'
-        }, {
-          value: 4,
           label: '资金冻结'
         }, {
-          value: 5,
+          value: 4,
           label: '严重侵权'
         }],
         permission: {
@@ -152,21 +170,38 @@
         row.pop = false
       },
       /**
-       * 解析风险类型
+       * 解析侵权类型
        * 1、 常规主题 2、一般侵权 3、资金冻结 4、严重侵权
        * @returns {number}
        */
       parseTortType(tortType) {
         switch (tortType) {
           case 1:
+            return '知产平台治理-一般侵权';
+          case 2:
+            return '知识产权-一般侵权';
+          case 3:
+            return '资金冻结';
+          case 4:
+            return '严重侵权';
+          default:
+            return '未识别';
+        }
+      },
+      /**
+       * 解析主题风险类型
+       * 1、 常规主题 2、一般侵权 3、资金冻结 4、严重侵权
+       * @returns {number}
+       */
+      parseRiskType(riskType) {
+        switch (riskType) {
+          case 1:
             return "常规主题";
           case 2:
-            return '知产平台治理-一般侵权';
+            return '一般侵权';
           case 3:
-            return '知识产权-一般侵权';
-          case 4:
             return '资金冻结';
-          case 5:
+          case 4:
             return '严重侵权';
           default:
             return '未识别';

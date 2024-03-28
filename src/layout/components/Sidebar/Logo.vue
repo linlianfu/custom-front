@@ -26,7 +26,7 @@
   },
   data() {
     return {
-      title: '跨境定制-后台管理',
+      title: 'Super Custom 管理系统',
       logo: Logo
     }
   }

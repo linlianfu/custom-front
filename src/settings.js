@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: '跨境定制',
+  title: 'Super Custom',
   /**
    * @description 是否显示 tagsView
    */

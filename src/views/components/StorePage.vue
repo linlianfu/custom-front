@@ -26,7 +26,13 @@
         </el-table-column>
       </el-table>
       <!--分页组件-->
-      <!--<pagination/>-->
+      <el-pagination
+        style="margin-top: 8px;"
+        layout="total, prev, pager, next, sizes"
+        @size-change="refresh"
+        @current-change="refresh"
+        :page-sizes="[2,10, 20, 30, 50]"
+      />
     </div>
     <div slot="footer" class="dialog-footer">
       <!--<el-button type="text" @click="crud.cancelCU">取消</el-button>-->
@@ -37,8 +43,10 @@
 
 <script>
   import storeManager from '@/api/store/storeManager'
+  import pagination from '@crud/Pagination'
 
   export default {
+    components: {pagination},
     props: {},
     data() {
       return {
@@ -53,6 +61,12 @@
     methods: {
       chooseStore(data) {
         this.$emit("chooseStore", data.id, data.storeName)
+      },
+      refresh(){
+        storeManager.pageStore({}).then(res => {
+          this.loading = false
+          this.storeList = res.content;
+        })
       }
     },
     mounted: function () {

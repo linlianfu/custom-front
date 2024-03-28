@@ -5,7 +5,7 @@
         <el-input v-model="form.storeName" style="width: 646px" placeholder="请选择店铺" @focus="openStoreDialog"/>
       </el-form-item>
       <el-form-item label="主题" prop="themeName">
-        <el-input v-model="form.themeName" style="width: 646px" placeholder="请选择主题"@focus="openThemeDialog"/>
+        <el-input v-model="form.themeName" style="width: 646px" placeholder="请选择主题" @focus="openThemeDialog"/>
       </el-form-item>
       <el-form-item label="上架时间" prop="upTime">
         <el-date-picker
@@ -28,11 +28,10 @@
       </el-form-item>
       <el-form-item label="侵权类型" prop="tortType">
         <el-radio-group v-model="form.tortType">
-          <el-radio :label="1">常规主题</el-radio>
-          <el-radio :label="2">知产平台治理-一般侵权</el-radio>
-          <el-radio :label="3">知识产权-一般侵权</el-radio>
-          <el-radio :label="4">资金冻结</el-radio>
-          <el-radio :label="5">严重侵权</el-radio>
+          <el-radio :label="1">知产平台治理-一般侵权</el-radio>
+          <el-radio :label="2">知识产权-一般侵权</el-radio>
+          <el-radio :label="3">资金冻结</el-radio>
+          <el-radio :label="4">严重侵权</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="侵权时间" prop="tortTime">
@@ -89,28 +88,28 @@
 
   export default {
     name: 'StoreThemeAdd',
-    components: {StorePage,ThemePage},
+    components: {StorePage, ThemePage},
     data() {
       return {
         loading: false,
         showStoreDialog: false,
-        showThemeDialog:false,
-        theme:null,
-        requestMethod:"add",
+        showThemeDialog: false,
+        theme: null,
+        requestMethod: "add",
         // 登记店铺主题  表单数据
-        form:{
-          id:null,
-          storeName:null, // rules校验，需要通过视图层更新，才能校验得到
-          themeName:null, // rules校验，需要通过视图层更新，才能校验得到
-          storeId:null,
-          themeId:null,
-          upTime:null,
-          productCount:null,
+        form: {
+          id: null,
+          storeName: null, // rules校验，需要通过视图层更新，才能校验得到
+          themeName: null, // rules校验，需要通过视图层更新，才能校验得到
+          storeId: null,
+          themeId: null,
+          upTime: null,
+          productCount: null,
           // 是否侵权 0：否  1：是
-          tort:null,
+          tort: null,
           // 侵权类型 2、一般侵权 3、资金冻结 4、严重侵权
-          tortType:null,
-          tortTime:null,
+          tortType: null,
+          tortTime: null,
         },
         rules: {
           // prop 应该是指表单数据模型（data）中的属性名称。
@@ -169,7 +168,7 @@
       /**
        * 处理选择店铺事件
        */
-      handleChooseStore(storeId,storeName) {
+      handleChooseStore(storeId, storeName) {
         this.showStoreDialog = false;
         this.form.storeName = storeName;
         this.form.storeId = storeId;
@@ -179,16 +178,17 @@
        * @param storeId
        * @param storeName
        */
-      handleChooseTheme(themeId,themeName) {
+      handleChooseTheme(themeId, themeName) {
         this.showThemeDialog = false;
         this.form.themeName = themeName;
         this.form.themeId = themeId;
       },
       doSubmit() {
         this.$refs["form"].validate((valid) => {
-          if(valid){
-            if (this.requestMethod === 'add'){
-              storeTheme.add(this.form).then((data)=>{
+          if (valid) {
+            debugger
+            if (this.requestMethod === 'add') {
+              storeTheme.add(this.form).then((data) => {
                 this.$message({
                   message: '登记成功',
                   type: 'success'
@@ -196,7 +196,8 @@
                 this.$router.push({path: '/store/store-theme'}); // 跳转到"/home"
               });
             } else {
-              storeTheme.edit(this.form).then((data)=>{
+              debugger
+              storeTheme.edit(this.form).then((data) => {
                 this.$message({
                   message: '更新成功',
                   type: 'success'
@@ -213,14 +214,18 @@
       }
     },
 
-    mounted:function () {
-      if ((this.form.id = this.$route.query.id) !== -1){
-        this.requestMethod = 'edit',
-        storeTheme.getStoreTheme(this.form.id).then(data=>{
-          Object.assign(this.form,data)
+    mounted: function () {
+      if (this.$route.query.id === '-1' || this.$route.query.id === -1) {
+        this.requestMethod = 'add';
+      }else {
+        this.form.id = this.$route.query.id;
+        this.requestMethod = 'edit';
+        storeTheme.getStoreTheme(this.form.id).then(data => {
+          Object.assign(this.form, data)
         })
       }
-  }
+
+    }
   }
 </script>
 

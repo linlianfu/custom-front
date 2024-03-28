@@ -29,7 +29,7 @@
           <span>{{scope.row.platformType === 1 ? '速卖通':'Temu'}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间"/>
+      <!--<el-table-column prop="createTime" label="创建时间"/>-->
       <el-table-column prop="createId" label="创建人"/>
       <!--   编辑与删除   -->
       <el-table-column
