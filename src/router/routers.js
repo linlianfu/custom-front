@@ -75,6 +75,7 @@ export const constantRouterMap = [
         component: (resolve) => require(['@/views/store/storeTheme/add'], resolve),
         name: '店铺主题登记',
         meta: { title: '店铺主题登记' }
+
       }
     ]
   }

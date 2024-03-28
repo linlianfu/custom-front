@@ -24,4 +24,11 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export function getStoreTheme(id) {
+  return request({
+    url: 'api/storeTheme/getStoreTheme?id='+id,
+    method: 'get'
+  })
+}
+
+export default { add, edit, del ,getStoreTheme}

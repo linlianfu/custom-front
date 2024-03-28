@@ -10,7 +10,7 @@
         size="mini"
         type="primary"
         icon="el-icon-plus"
-        @click="goCreate"
+        @click="goCreate(-1)"
       >
         新增
       </el-button>
@@ -53,10 +53,15 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <udOperation
-            :data="scope.row"
-            :permission="permission"
-          />
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="goCreate(scope.row.id)" />
+          <el-popover v-model="scope.row.pop" placement="top" width="180" trigger="manual" @show="onPopoverShow" @hide="onPopoverHide">
+            <p>确定删除本条数据吗</p>
+            <div style="text-align: right; margin: 0">
+              <el-button size="mini" type="text" @click="doCancel(scope.row)">取消</el-button>
+              <el-button type="primary" size="mini" @click="crud.doDelete(scope.row)">确定</el-button>
+            </div>
+            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" @click.stop="toDelete(scope.row)" />
+          </el-popover>
         </template>
       </el-table-column>
     </el-table>
@@ -106,27 +111,45 @@
           label: '常规主题'
         }, {
           value: 2,
-          label: '一般侵权'
+          label: '知产平台治理-一般侵权'
         }, {
           value: 3,
-          label: '资金冻结'
+          label: '知识产权-一般侵权'
         }, {
           value: 4,
+          label: '资金冻结'
+        }, {
+          value: 5,
           label: '严重侵权'
         }],
         permission: {
-          add: ['admin', 'job:add'],
-          edit: ['admin', 'job:edit'],
-          del: ['admin', 'job:del']
         },
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
-        }
+        },
+        pop: false
       }
     },
     methods: {
-      goCreate() {
-        this.$router.push({path: '/store/store-theme/add'}); // 跳转到"/home"
+      goCreate(id) {
+        this.$router.push({path: '/store/store-theme/add',query:{id:id}}); // 跳转到"/home"
+      },
+      toDelete(row) {
+        row.pop = true
+      },
+      onPopoverShow() {
+        setTimeout(() => {
+          document.addEventListener('click', this.handleDocumentClick)
+        }, 0)
+      },
+      onPopoverHide() {
+        document.removeEventListener('click', this.handleDocumentClick)
+      },
+      doCancel(row) {
+        row.pop = false
+      },
+      handleDocumentClick(event) {
+        row.pop = false
       },
       /**
        * 解析风险类型
