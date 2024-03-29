@@ -3,17 +3,47 @@
     <!--工具栏-->
     <div class="head-container">
       <eHeader :tort-type-list="tortTypeList" :risk-type-list="riskTypeList" :permission="permission"/>
-      <!--<crudOperation :permission="permission"/>-->
-      <crudOperation :permission="permission"/>
-      <el-button
-        class="filter-item"
-        size="mini"
-        type="primary"
-        icon="el-icon-plus"
-        @click="goCreate(-1)"
-      >
-        新增
-      </el-button>
+      <div class="crud-opts">
+
+        <el-button
+          class="filter-item"
+          size="mini"
+          type="primary"
+          icon="el-icon-plus"
+          @click="goCreate(-1)"
+        >
+          新增
+        </el-button>
+
+        <el-button-group class="crud-opts-right">
+          <el-button
+            size="mini"
+            plain
+            type="info"
+            icon="el-icon-search"
+          />
+          <el-button
+            size="mini"
+            icon="el-icon-refresh"
+          />
+          <el-popover
+            placement="bottom-end"
+            width="150"
+            trigger="click"
+          >
+            <el-button
+              slot="reference"
+              size="mini"
+              icon="el-icon-s-grid"
+            >
+              <i
+                class="fa fa-caret-down"
+                aria-hidden="true"
+              />
+            </el-button>
+          </el-popover>
+        </el-button-group>
+      </div>
     </div>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;"
@@ -45,7 +75,7 @@
       <el-table-column prop="intellectualPropertyName" label="知识产权名称"/>
       <!--<el-table-column label="是否删除"/>-->
       <!--<el-table-column prop="status" label="系统提示">-->
-        <!--<span>严重侵权</span>-->
+      <!--<span>严重侵权</span>-->
       <!--</el-table-column>-->
       <el-table-column prop="remark" label="备注"/>
       <!--<el-table-column prop="createTime" label="创建时间"/>-->
@@ -58,14 +88,16 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="goCreate(scope.row.id)" />
-          <el-popover v-model="scope.row.pop" placement="top" width="180" trigger="manual" @show="onPopoverShow" @hide="onPopoverHide">
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="goCreate(scope.row.id)"/>
+          <el-popover v-model="scope.row.pop" placement="top" width="180" trigger="manual" @show="onPopoverShow"
+                      @hide="onPopoverHide">
             <p>确定删除本条数据吗</p>
             <div style="text-align: right; margin: 0">
               <el-button size="mini" type="text" @click="doCancel(scope.row)">取消</el-button>
               <el-button type="primary" size="mini" @click="crud.doDelete(scope.row)">确定</el-button>
             </div>
-            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" @click.stop="toDelete(scope.row)" />
+            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini"
+                       @click.stop="toDelete(scope.row)"/>
           </el-popover>
         </template>
       </el-table-column>
@@ -140,8 +172,7 @@
           value: 4,
           label: '严重侵权'
         }],
-        permission: {
-        },
+        permission: {},
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
         },
@@ -150,7 +181,7 @@
     },
     methods: {
       goCreate(id) {
-        this.$router.push({path: '/store/store-theme/add',query:{id:id}}); // 跳转到"/home"
+        this.$router.push({path: '/store/store-theme/add', query: {id: id}}); // 跳转到"/home"
       },
       toDelete(row) {
         row.pop = true
@@ -174,8 +205,8 @@
        * 1、 常规主题 2、一般侵权 3、资金冻结 4、严重侵权
        * @returns {number}
        */
-       parseTortType(tortType){
-        if (tortType == null){
+      parseTortType(tortType) {
+        if (tortType == null) {
           return '无';
         }
         switch (tortType) {

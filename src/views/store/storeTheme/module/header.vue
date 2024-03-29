@@ -1,6 +1,5 @@
 <template>
   <div class="head-container"
-    v-if="crud.props.searchToggle"
   >
     <!--<el-input v-model="query.name" clearable size="small" placeholder="输入岗位名称搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />-->
     <!--<date-range-picker v-model="query.createTime" class="date-item" />-->
@@ -24,6 +23,8 @@
         :label="item.label"
         :value="item.value"/>
     </el-select>
+
+    <!--弹窗对话框-->
     <el-dialog
       :close-on-click-modal="false"
       :visible="showStoreDialog"
