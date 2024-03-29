@@ -2,7 +2,7 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <eHeader :tort-type-list="tortTypeList" :risk-type-list="riskTypeList" :permission="permission"/>
+      <eHeader :tort-type-list="tortTypeList" :risk-type-list="riskTypeList" :tort-list="tortList" :permission="permission"/>
       <div class="crud-opts">
 
         <el-button
@@ -53,7 +53,7 @@
               :cell-style="cellStyle">
       <el-table-column type="index" width="55" label="序号"/>
       <el-table-column prop="storeName" label="店铺"/>
-      <el-table-column prop="themeName" label="主题" title="themeName"/>
+      <el-table-column prop="keyword" label="主题"/>
       <el-table-column prop="riskType" label="主题风险">
         <template slot-scope="scope">
           {{ parseRiskType(scope.row.riskType) }}
@@ -63,7 +63,7 @@
       <el-table-column prop="productCount" label="上架产品数量"/>
       <el-table-column prop="tort" label="是否侵权">
         <template slot-scope="scope">
-          <span>{{scope.row.tort === 0 ? '是':'否'}}</span>
+          <span>{{scope.row.tort === 0 ? '否':'是'}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="tortType" label="侵权类型">
@@ -171,6 +171,16 @@
         }, {
           value: 4,
           label: '严重侵权'
+        }],
+        tortList: [{
+          value: null,
+          label: '请选择是否侵权'
+        }, {
+          value: 0,
+          label: '否'
+        }, {
+          value: 1,
+          label: '是'
         }],
         permission: {},
         cellStyle({row, column, rowIndex, columnIndex}) {

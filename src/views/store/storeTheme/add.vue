@@ -22,11 +22,11 @@
       </el-form-item>
       <el-form-item label="是否侵权" prop="tort">
         <el-radio-group v-model="form.tort">
-          <el-radio :label="0">是</el-radio>
-          <el-radio :label="1">否</el-radio>
+          <el-radio :label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="侵权类型" v-if="form.tort === 0">
+      <el-form-item label="侵权类型" v-if="form.tort === 1">
         <el-radio-group v-model="form.tortType">
           <el-radio :label="1">知产平台治理-一般侵权</el-radio>
           <el-radio :label="2">知识产权-一般侵权</el-radio>
@@ -34,7 +34,7 @@
           <el-radio :label="4">严重侵权</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="侵权时间" prop="tortTime" v-if="form.tort === 0">
+      <el-form-item label="侵权时间" prop="tortTime" v-if="form.tort === 1">
         <el-date-picker
           v-model="form.tortTime"
           align="right"
@@ -44,7 +44,7 @@
           value-format="yyyy-MM-dd">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="知识产权名称" prop="intellectualPropertyName" v-if="form.tort === 0">
+      <el-form-item label="知识产权名称" prop="intellectualPropertyName" v-if="form.tort === 1">
         <el-input v-model="form.intellectualPropertyName" style="width: 646px" placeholder="请输入备注"/>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
@@ -64,7 +64,7 @@
       @close="showStoreDialog = false"
       title="我的店铺"
       width="1000px">
-      <store-page @chooseStore="handleChooseStore"/>
+      <store-page @chooseStore="handleChooseStore" @cancelChooseStore="handleCancelChooseStore"/>
     </el-dialog>
 
     <el-dialog
@@ -73,7 +73,7 @@
       @close="showThemeDialog = false"
       title="主题管理"
       width="1000px">
-      <theme-page @chooseTheme="handleChooseTheme"/>
+      <theme-page @chooseTheme="handleChooseTheme" @cancelChooseTheme="handleCancelChooseTheme"/>
     </el-dialog>
   </div>
 </template>
@@ -110,6 +110,7 @@
           // 侵权类型 2、一般侵权 3、资金冻结 4、严重侵权
           tortType: null,
           tortTime: null,
+          intellectualPropertyName:null
         },
         rules: {
           // prop 应该是指表单数据模型（data）中的属性名称。
@@ -170,6 +171,10 @@
         this.form.storeName = storeName;
         this.form.storeId = storeId;
       },
+      handleCancelChooseStore(storeId, storeName) {
+        this.form.storeName = null;
+        this.form.storeId = null;
+      },
       /**
        * 处理选择主题事件
        * @param storeId
@@ -180,10 +185,33 @@
         this.form.themeName = themeName;
         this.form.themeId = themeId;
       },
+      handleCancelChooseTheme(themeId, themeName) {
+        this.form.themeName = null;
+        this.form.themeId = null;
+      },
       doSubmit: function () {
         this.$refs["form"].validate((valid) => {
           if (valid) {
-            if (this.form.tort === 1) this.form.tortType = null;
+            if (this.form.tort === 0) {
+              this.form.tortType = null;
+              this.form.tortTime = null;
+              this.form.intellectualPropertyName = null;
+            }else {
+              if ( this.form.tortType === null){
+                this.$message({
+                  message: '请选择侵权类型',
+                  type: 'warning'
+                });
+                return
+              }
+              if ( this.form.tortTime === null){
+                this.$message({
+                  message: '请选择侵权时间',
+                  type: 'warning'
+                });
+                return
+              }
+            }
             if (this.requestMethod === 'add') {
               storeTheme.add(this.form).then((data) => {
                 this.$message({

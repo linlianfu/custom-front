@@ -9,6 +9,10 @@
                style="width: 200px" @change="crud.toQuery">
       <el-option v-for="item in riskTypeList" :key="item.value" :label="item.label" :value="item.value"/>
     </el-select>
+    <el-select v-model="query.tort" clearable size="small" placeholder="请选择是否侵权" class="filter-item"
+               style="width: 200px" @change="crud.toQuery">
+      <el-option v-for="item in tortList" :key="item.value" :label="item.label" :value="item.value"/>
+    </el-select>
     <el-select
       v-model="query.tortType"
       clearable
@@ -31,7 +35,7 @@
       @close="showStoreDialog = false"
       title="我的店铺"
       width="1000px">
-      <store-page @chooseStore="handleChooseStore"/>
+      <store-page @chooseStore="handleChooseStore" @cancelChooseStore="handleCancelChooseStore"/>
     </el-dialog>
     <el-dialog
       :close-on-click-modal="false"
@@ -39,7 +43,7 @@
       @close="showThemeDialog = false"
       title="主题管理"
       width="1000px">
-      <theme-page @chooseTheme="handleChooseTheme"/>
+      <theme-page @chooseTheme="handleChooseTheme" @cancelChooseTheme="handleCancelChooseTheme"/>
     </el-dialog>
     <rrOperation/>
   </div>
@@ -61,6 +65,10 @@
         required: true
       },
       riskTypeList: {
+        type: Array,
+        required: true
+      },
+      tortList:{
         type: Array,
         required: true
       },
@@ -92,10 +100,18 @@
         this.storeName = storeName;
         this.query.storeId = storeId;
       },
+      handleCancelChooseStore(storeId, storeName) {
+        this.storeName = null;
+        this.query.storeId = null;
+      },
       handleChooseTheme(themeId, themeName) {
         this.showThemeDialog = false;
         this.themeName = themeName;
         this.query.themeId = themeId;
+      },
+      handleCancelChooseTheme(themeId, themeName) {
+        this.themeName = null;
+        this.query.themeId = null;
       }
     }
   }
