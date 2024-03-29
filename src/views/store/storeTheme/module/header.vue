@@ -1,18 +1,28 @@
 <template>
-  <div
+  <div class="head-container"
     v-if="crud.props.searchToggle"
   >
     <!--<el-input v-model="query.name" clearable size="small" placeholder="输入岗位名称搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />-->
     <!--<date-range-picker v-model="query.createTime" class="date-item" />-->
-    <el-input v-model="storeName" style="width: 200px" placeholder="请选择店铺" @focus="openStoreDialog"/>
-    <el-input v-model="themeName" style="width: 200px" placeholder="请选择主题" @focus="openThemeDialog"/>
-    <el-select v-model="query.tortType" clearable size="small" placeholder="请选择侵权类型" class="filter-item"
-               style="width: 200px" @change="crud.toQuery">
-      <el-option v-for="item in tortTypeList" :key="item.value" :label="item.label" :value="item.value"/>
-    </el-select>
+    <el-input v-model="storeName" style="width: 200px" placeholder="请选择店铺" @focus="openStoreDialog"  class="filter-item"/>
+    <el-input v-model="themeName" style="width: 200px" placeholder="请选择主题" @focus="openThemeDialog"  class="filter-item"/>
     <el-select v-model="query.riskType" clearable size="small" placeholder="请选择主题风险类型" class="filter-item"
                style="width: 200px" @change="crud.toQuery">
       <el-option v-for="item in riskTypeList" :key="item.value" :label="item.label" :value="item.value"/>
+    </el-select>
+    <el-select
+      v-model="query.tortType"
+      clearable
+      size="small"
+      placeholder="请选择侵权类型"
+      class="filter-item"
+      style="width: 200px"
+      @change="crud.toQuery">
+      <el-option
+        v-for="item in tortTypeList"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"/>
     </el-select>
     <el-dialog
       :close-on-click-modal="false"
