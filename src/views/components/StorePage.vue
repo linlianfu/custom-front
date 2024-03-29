@@ -21,17 +21,23 @@
           fixed="right"
         >
           <template slot-scope="scope">
-            <el-button size="medium" type="primary" @click="chooseStore(scope.row)">选择</el-button>
+            <el-button v-if="currentStoreId !== scope.row.id" size="medium"
+                       type="primary" @click="chooseStore(scope.row)">选择</el-button>
+            <el-button v-if="currentStoreId === scope.row.id" size="medium"
+                       type="warning" @click="cancelChooseStore(scope.row)">取消</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--分页组件-->
       <el-pagination
+        :page-size.sync="pageParam.size"
+        :total="totalSize"
+        :current-page.sync="pageParam.current"
         style="margin-top: 8px;"
         layout="total, prev, pager, next, sizes"
-        @size-change="refresh"
-        @current-change="refresh"
-        :page-sizes="[2,10, 20, 30, 50]"
+        @size-change="sizeChange"
+        @current-change="pageChange"
+        :page-sizes="[10, 20, 30, 50]"
       />
     </div>
     <div slot="footer" class="dialog-footer">
@@ -43,15 +49,20 @@
 
 <script>
   import storeManager from '@/api/store/storeManager'
-  import pagination from '@crud/Pagination'
 
   export default {
-    components: {pagination},
     props: {},
     data() {
       return {
         loading: true,
         storeList: [],
+        totalSize: 0,
+        pageParam: {
+          current: 1,
+          size: 10,
+        },
+        currentPage: 1,
+        currentStoreId:null,
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
         }
@@ -60,20 +71,36 @@
 
     methods: {
       chooseStore(data) {
-        this.$emit("chooseStore", data.id, data.storeName)
+        this.$emit("chooseStore", data.id, data.storeName);
+        this.currentStoreId = data.id
       },
-      refresh(){
-        storeManager.pageStore({}).then(res => {
-          this.loading = false
+      cancelChooseStore(data){
+        this.$emit("cancelChooseStore", data.id, data.storeName);
+        this.currentStoreId = null;
+      },
+      sizeChange(e) {
+        this.pageParam.size = e;
+        this.refresh();
+      },
+      pageChange(e) {
+        this.pageParam.current = e;
+        this.refresh();
+      },
+      refresh() {
+        this.loading = true
+        const params = {size: this.pageParam.size, current: this.pageParam.current};
+        storeManager.pageStore(params).then(res => {
+          this.totalSize = res.totalElements;
           this.storeList = res.content;
+          this.loading = false
         })
       }
     },
     mounted: function () {
-
       storeManager.pageStore({}).then(res => {
         this.loading = false
         this.storeList = res.content;
+        this.totalSize = res.totalElements
       })
     }
   }

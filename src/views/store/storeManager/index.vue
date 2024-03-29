@@ -2,7 +2,7 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <eHeader :dict="dict" :permission="permission"/>
+      <eHeader :dict="dict" :permission="permission" :status-list = "statusList"/>
       <crudOperation :permission="permission"/>
     </div>
     <!--表格渲染-->
@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
       <!--<el-table-column prop="createTime" label="创建时间"/>-->
-      <el-table-column prop="createId" label="创建人"/>
+      <!--<el-table-column prop="createId" label="创建人"/>-->
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
@@ -100,6 +100,16 @@
       return {
         permission: {
         },
+        statusList: [{
+          value: null,
+          label: '请选择店铺状态'
+        }, {
+          value: 1,
+          label: '运营中'
+        }, {
+          value: 2,
+          label: '退出运营'
+        },],
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
         }

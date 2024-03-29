@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function pageTheme(data) {
+export function pageTheme(params) {
   return request({
     url: 'api/theme/page',
     method: 'get',
-    data
+    params
   })
 }
 

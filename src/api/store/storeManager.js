@@ -1,12 +1,5 @@
 import request from '@/utils/request'
 
-export function pageStore(data) {
-  return request({
-    url: 'api/store',
-    method: 'get',
-    data
-  })
-}
 export function add(data) {
   return request({
     url: 'api/store',
@@ -30,5 +23,11 @@ export function edit(data) {
     data
   })
 }
-
-export default { pageStore,add, edit, del }
+export function pageStore(params) {
+  return request({
+    url: 'api/store',
+    method: 'get',
+    params
+  })
+}
+export default { add, edit, del ,pageStore}

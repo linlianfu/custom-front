@@ -1,44 +1,62 @@
 <template>
-  <div>
-    <div style="max-width: 1000px;margin: 10px auto">
-      <el-table ref="table" style="width: 100%;"
-                v-loading="loading" :data="themeList"
-                border
-                :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
-                :cell-style="cellStyle">
-        <el-table-column type="index" label="序号" width="55" align="center"/>
-        <el-table-column prop="name" label="主题名称" width="355" align="center"/>
-        <el-table-column prop="keyword" label="关键字" align="center"/>
-        <el-table-column label="风险等级" align="center">
-          <template slot-scope="scope">
-            {{ parseTortType(scope.row.tortType) }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="flow" label="流量等级" align="center">
-          <template slot-scope="scope">
-            {{ parseFlow(scope.row.flow) }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="remark" label="备注" align="center"/>
-        <!--   编辑与删除   -->
-        <el-table-column
-          label="操作"
-          width="130px"
-          align="center"
-          fixed="right"
-        >
-          <template slot-scope="scope">
-            <el-button size="medium" type="primary" @click="chooseTheme(scope.row)">选择</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!--分页组件-->
-      <!--<pagination/>-->
+  <div style="max-width: 1000px;margin: 10px auto">
+    <div class="head-container">
+      <el-input v-model="param.name" clearable size="medium" placeholder="请输入主题名称搜索" style="width: 200px;"
+                class="filter-item"
+                @keyup.enter.native="refresh"/>
+      <el-input v-model="param.keyword" clearable size="medium" placeholder="请输入关键词搜索" style="width: 200px;"
+                class="filter-item"
+                @keyup.enter.native="refresh"/>
+      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="refresh">搜索</el-button>
     </div>
-    <div slot="footer" class="dialog-footer">
-      <!--<el-button type="text" @click="crud.cancelCU">取消</el-button>-->
-      <!--<el-button :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>-->
-    </div>
+    <el-table ref="table" style="width: 100%;"
+              v-loading="loading" :data="themeList"
+              border
+              :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
+              :cell-style="cellStyle">
+      <el-table-column type="index" label="序号" width="55" align="center"/>
+      <el-table-column prop="name" label="主题名称" width="355" align="center"/>
+      <el-table-column prop="keyword" label="关键字" align="center"/>
+      <el-table-column label="风险等级" align="center">
+        <template slot-scope="scope">
+          {{ parseTortType(scope.row.tortType) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="flow" label="流量等级" align="center">
+        <template slot-scope="scope">
+          {{ parseFlow(scope.row.flow) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="remark" label="备注" align="center"/>
+      <!--   编辑与删除   -->
+      <el-table-column
+        label="操作"
+        width="130px"
+        align="center"
+        fixed="right"
+      >
+        <template slot-scope="scope">
+          <el-button v-if="currentThemeId !== scope.row.id" size="medium"
+                     type="primary" @click="chooseTheme(scope.row)">选择
+          </el-button>
+          <el-button v-if="currentThemeId === scope.row.id" size="medium"
+                     type="warning" @click="cancelChooseTheme(scope.row)">取消
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!--分页组件-->
+    <!--分页组件-->
+    <el-pagination
+      :page-size.sync="pageParam.size"
+      :total="totalSize"
+      :current-page.sync="pageParam.current"
+      style="margin-top: 8px;"
+      layout="total, prev, pager, next, sizes"
+      @size-change="sizeChange"
+      @current-change="pageChange"
+      :page-sizes="[10, 20, 30, 50]"
+    />
   </div>
 </template>
 
@@ -51,6 +69,17 @@
       return {
         loading: true,
         themeList: [],
+        totalSize: 0,
+        currentThemeId: null,
+        param: {
+          name: null,
+          keyword: null
+        },
+        pageParam: {
+          current: 1,
+          size: 10,
+        },
+        currentPage: 1,
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
         }
@@ -60,6 +89,33 @@
     methods: {
       chooseTheme(data) {
         this.$emit("chooseTheme", data.id, data.name)
+        this.currentThemeId = data.id
+      },
+      cancelChooseTheme(data) {
+        this.$emit("cancelChooseTheme", data.id, data.name)
+        this.currentThemeId = null
+      },
+      sizeChange(e) {
+        this.pageParam.size = e;
+        this.refresh();
+      },
+      pageChange(e) {
+        this.pageParam.current = e;
+        this.refresh();
+      },
+      refresh() {
+        this.loading = true
+        const params = {
+          size: this.pageParam.size,
+          current: this.pageParam.current,
+          name: this.param.name,
+          keyword: this.param.keyword
+        };
+        themeApi.pageTheme(params).then(res => {
+          this.totalSize = res.totalElements;
+          this.themeList = res.content;
+          this.loading = false
+        })
       },
       /**
        * 解析风险类型
@@ -86,10 +142,10 @@
        * @param flow
        * @returns {string}
        */
-      parseFlow(flow){
-        if (flow === 1){
+      parseFlow(flow) {
+        if (flow === 1) {
           return "常规主题";
-        }else
+        } else
           return "爆款主题";
       }
     },
@@ -98,6 +154,7 @@
       themeApi.pageTheme({}).then(res => {
         this.loading = false;
         this.themeList = res.content;
+        this.totalSize = res.totalElements
       })
     }
   }

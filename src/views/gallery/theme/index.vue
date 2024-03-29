@@ -2,7 +2,7 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <eHeader :dict="dict" :permission="permission"/>
+      <eHeader :dict="dict" :permission="permission" :risk-type-list="riskTypeList" :flow-list="flowList"/>
       <crudOperation :permission="permission"/>
     </div>
     <!--表格渲染-->
@@ -23,7 +23,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注" align="center"/>
-      <el-table-column prop="createdId" label="创建人" align="center"/>
+      <!--<el-table-column prop="createdId" label="创建人" align="center"/>-->
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
@@ -78,7 +78,33 @@
     data() {
       return {
         permission: {
-        }
+        },
+        riskTypeList: [{
+          value: null,
+          label: '请选择侵权类型'
+        }, {
+          value: 1,
+          label: '常规主题'
+        }, {
+          value: 2,
+          label: '一般侵权'
+        }, {
+          value: 3,
+          label: '资金冻结'
+        }, {
+          value: 4,
+          label: '严重侵权'
+        }],
+        flowList: [{
+          value: null,
+          label: '请选择流量等级'
+        }, {
+          value: 1,
+          label: '常规主题'
+        }, {
+          value: 2,
+          label: '爆款主题'
+        }]
       }
     },
     methods: {

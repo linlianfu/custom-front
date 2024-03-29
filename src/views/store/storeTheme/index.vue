@@ -21,7 +21,7 @@
               border
               :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
               :cell-style="cellStyle">
-      <el-table-column type="index" width="55"/>
+      <el-table-column type="index" width="55" label="序号"/>
       <el-table-column prop="storeName" label="店铺"/>
       <el-table-column prop="themeName" label="主题" title="themeName"/>
       <el-table-column prop="riskType" label="主题风险">
@@ -174,7 +174,10 @@
        * 1、 常规主题 2、一般侵权 3、资金冻结 4、严重侵权
        * @returns {number}
        */
-      parseTortType(tortType) {
+       parseTortType(tortType){
+        if (tortType == null){
+          return '无';
+        }
         switch (tortType) {
           case 1:
             return '知产平台治理-一般侵权';

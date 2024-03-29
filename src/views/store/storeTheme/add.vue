@@ -26,7 +26,7 @@
           <el-radio :label="1">否</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="侵权类型" prop="tortType">
+      <el-form-item label="侵权类型" v-if="form.tort === 0">
         <el-radio-group v-model="form.tortType">
           <el-radio :label="1">知产平台治理-一般侵权</el-radio>
           <el-radio :label="2">知识产权-一般侵权</el-radio>
@@ -34,7 +34,7 @@
           <el-radio :label="4">严重侵权</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="侵权时间" prop="tortTime">
+      <el-form-item label="侵权时间" prop="tortTime" v-if="form.tort === 0">
         <el-date-picker
           v-model="form.tortTime"
           align="right"
@@ -44,7 +44,7 @@
           value-format="yyyy-MM-dd">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="知识产权名称" prop="intellectualPropertyName">
+      <el-form-item label="知识产权名称" prop="intellectualPropertyName" v-if="form.tort === 0">
         <el-input v-model="form.intellectualPropertyName" style="width: 646px" placeholder="请输入备注"/>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
@@ -124,10 +124,7 @@
           ],
           tort: [
             {required: true, message: '请选择是否侵权', trigger: 'change'}
-          ],
-          tortType: [
-            {required: true, message: '请选择侵权类型', trigger: 'change'}
-          ],
+          ]
         },
         pickerOptions: {
           disabledDate(time) {
@@ -183,10 +180,10 @@
         this.form.themeName = themeName;
         this.form.themeId = themeId;
       },
-      doSubmit() {
+      doSubmit: function () {
         this.$refs["form"].validate((valid) => {
           if (valid) {
-            debugger
+            if (this.form.tort === 1) this.form.tortType = null;
             if (this.requestMethod === 'add') {
               storeTheme.add(this.form).then((data) => {
                 this.$message({
@@ -196,7 +193,6 @@
                 this.$router.push({path: '/store/store-theme'}); // 跳转到"/home"
               });
             } else {
-              debugger
               storeTheme.edit(this.form).then((data) => {
                 this.$message({
                   message: '更新成功',
@@ -217,7 +213,7 @@
     mounted: function () {
       if (this.$route.query.id === '-1' || this.$route.query.id === -1) {
         this.requestMethod = 'add';
-      }else {
+      } else {
         this.form.id = this.$route.query.id;
         this.requestMethod = 'edit';
         storeTheme.getStoreTheme(this.form.id).then(data => {
