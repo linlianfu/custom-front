@@ -2,7 +2,8 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <eHeader :tort-type-list="tortTypeList" :risk-type-list="riskTypeList" :tort-list="tortList" :permission="permission"/>
+      <eHeader :tort-type-list="tortTypeList" :risk-type-list="riskTypeList" :tort-list="tortList"
+               :permission="permission"/>
       <div class="crud-opts">
 
         <el-button
@@ -50,7 +51,9 @@
               @selection-change="crud.selectionChangeHandler"
               border
               :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
-              :cell-style="cellStyle">
+              :cell-style="cellStyle"
+              :default-sort="{prop: 'upTime', order: 'descending'}"
+              @sort-change="sortChange">
       <el-table-column type="index" width="55" label="序号"/>
       <el-table-column prop="storeName" label="店铺"/>
       <el-table-column prop="keyword" label="主题"/>
@@ -59,7 +62,7 @@
           {{ parseRiskType(scope.row.riskType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="upTime" label="上架时间"/>
+      <el-table-column prop="upTime" label="上架时间" sortable="custom"/>
       <el-table-column prop="productCount" label="上架产品数量"/>
       <el-table-column prop="tort" label="是否侵权">
         <template slot-scope="scope">
@@ -71,7 +74,7 @@
           {{ parseTortType(scope.row.tortType) }}
         </template>
       </el-table-column>
-      <el-table-column prop="tortTime" label="侵权时间"/>
+      <el-table-column prop="tortTime" label="侵权时间" sortable="custom"/>
       <el-table-column prop="intellectualPropertyName" label="知识产权名称"/>
       <!--<el-table-column label="是否删除"/>-->
       <!--<el-table-column prop="status" label="系统提示">-->
@@ -209,6 +212,16 @@
       },
       handleDocumentClick(event) {
         row.pop = false
+      },
+      sortChange(sortField) {
+        if (sortField.order === 'descending') {
+          this.crud.query.sortMethod = 1
+        } else if (sortField.order === 'ascending') {
+          this.crud.query.sortMethod = 2
+        }
+
+        this.crud.query.sortField = sortField.prop
+        this.crud.toQuery();
       },
       /**
        * 解析侵权类型
