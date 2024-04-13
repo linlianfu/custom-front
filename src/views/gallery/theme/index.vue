@@ -10,8 +10,9 @@
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="55" align="center"/>
-      <el-table-column prop="name" label="主题名称" width="355" align="center"/>
-      <el-table-column prop="keyword" label="关键词" align="center"/>
+      <el-table-column prop="name" label="主题名称(中文)" width="355" align="center"/>
+      <el-table-column prop="theme" label="主题" align="center"/>
+      <el-table-column prop="label" label="标签" align="center"/>
       <el-table-column label="风险等级" align="center">
         <template slot-scope="scope">
           {{ parseRiskType(scope.row.riskType) }}
@@ -22,6 +23,8 @@
           {{ parseFlow(scope.row.flow) }}
         </template>
       </el-table-column>
+      <el-table-column prop="associateStoreCount" label="关联店铺数量" align="center"/>
+      <el-table-column prop="create" label="创建人" align="center"/>
       <el-table-column prop="remark" label="备注" align="center"/>
       <!--<el-table-column prop="createdId" label="创建人" align="center"/>-->
       <!--   编辑与删除   -->

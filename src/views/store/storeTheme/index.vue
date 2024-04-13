@@ -56,7 +56,7 @@
               @sort-change="sortChange">
       <el-table-column type="index" width="55" label="序号"/>
       <el-table-column prop="storeName" label="店铺"/>
-      <el-table-column prop="keyword" label="主题"/>
+      <el-table-column prop="theme" label="主题"/>
       <el-table-column prop="riskType" label="主题风险">
         <template slot-scope="scope">
           {{ parseRiskType(scope.row.riskType) }}

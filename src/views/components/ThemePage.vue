@@ -4,7 +4,7 @@
       <el-input v-model="param.name" clearable size="medium" placeholder="请输入主题名称搜索" style="width: 200px;"
                 class="filter-item"
                 @keyup.enter.native="refresh"/>
-      <el-input v-model="param.keyword" clearable size="medium" placeholder="请输入关键词搜索" style="width: 200px;"
+      <el-input v-model="param.theme" clearable size="medium" placeholder="请输入主题搜索" style="width: 200px;"
                 class="filter-item"
                 @keyup.enter.native="refresh"/>
       <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="refresh">搜索</el-button>
@@ -15,8 +15,9 @@
               :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
               :cell-style="cellStyle">
       <el-table-column type="index" label="序号" width="55" align="center"/>
-      <el-table-column prop="name" label="主题名称" width="355" align="center"/>
-      <el-table-column prop="keyword" label="关键字" align="center"/>
+      <el-table-column prop="name" label="主题名称" align="center"/>
+      <el-table-column prop="theme" label="主题" align="center"/>
+      <el-table-column prop="label" label="标签" align="center"/>
       <el-table-column label="风险等级" align="center">
         <template slot-scope="scope">
           {{ parseRiskType(scope.row.riskType) }}
@@ -27,6 +28,7 @@
           {{ parseFlow(scope.row.flow) }}
         </template>
       </el-table-column>
+      <el-table-column prop="create" label="创建人" align="center"/>
       <el-table-column prop="remark" label="备注" align="center"/>
       <!--   编辑与删除   -->
       <el-table-column
@@ -73,7 +75,7 @@
         currentThemeId: null,
         param: {
           name: null,
-          keyword: null
+          theme: null
         },
         pageParam: {
           current: 1,
@@ -88,11 +90,11 @@
 
     methods: {
       chooseTheme(data) {
-        this.$emit("chooseTheme", data.id, data.keyword)
+        this.$emit("chooseTheme", data.id, data.theme)
         this.currentThemeId = data.id
       },
       cancelChooseTheme(data) {
-        this.$emit("cancelChooseTheme", data.id, data.keyword)
+        this.$emit("cancelChooseTheme", data.id, data.theme)
         this.currentThemeId = null
       },
       sizeChange(e) {
@@ -109,7 +111,7 @@
           size: this.pageParam.size,
           current: this.pageParam.current,
           name: this.param.name,
-          keyword: this.param.keyword
+          theme: this.param.theme
         };
         themeApi.pageTheme(params).then(res => {
           this.totalSize = res.totalElements;

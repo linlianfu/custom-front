@@ -15,7 +15,7 @@
       label-width="180px"
     >
       <el-form-item
-        label="主题名称"
+        label="主题名称(中文)"
         prop="name"
       >
         <el-input
@@ -25,11 +25,20 @@
       </el-form-item>
 
       <el-form-item
-        label="关键词"
-        prop="keyword"
+        label="主题"
+        prop="theme"
       >
         <el-input
-          v-model="form.keyword"
+          v-model="form.theme"
+          style="width: 370px;"
+        />
+      </el-form-item>
+      <el-form-item
+        label="标签"
+        prop="label"
+      >
+        <el-input
+          v-model="form.label"
           style="width: 370px;"
         />
       </el-form-item>
@@ -94,7 +103,8 @@
   const defaultForm = {
   id: null,
   name: '',
-  keyword: '',
+  theme: '',
+  label: '',
   riskType: null,
   flow: null,
   remark: '',
@@ -107,8 +117,8 @@ export default {
         name: [
           { required: true, message: '请输入名称', trigger: 'blur' }
         ],
-        keyword: [
-          { required: true, message: '请输入关键词', trigger: 'blur'}
+        theme: [
+          { required: true, message: '请输入主题', trigger: 'blur'}
         ],
         riskType: [
           { required: true, message: '请选择风险等级', trigger: 'change' }
