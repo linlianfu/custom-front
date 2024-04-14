@@ -11,9 +11,9 @@
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
               :cell-style="cellStyle">
       <el-table-column type="index" width="55" label="序号"/>
-      <el-table-column prop="storeName" label="店铺名称"/>
+      <el-table-column prop="storeName" width="200px" label="店铺名称" show-overflow-tooltip/>
       <el-table-column prop="legalPerson" label="法人"/>
-      <el-table-column prop="businessLicense" label="营业执照"/>
+      <el-table-column prop="businessLicense" width="180px" label="营业执照"show-overflow-tooltip/>
       <el-table-column prop="registrationTime" label="注册时间"/>
       <el-table-column prop="tortFraction" label="侵权扣分"/>
       <el-table-column prop="seriousTrotCount" label="严重侵权次数"/>

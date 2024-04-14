@@ -10,8 +10,8 @@
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="55" align="center"/>
-      <el-table-column prop="name" label="主题名称(中文)" width="355" align="center"/>
-      <el-table-column prop="theme" label="主题" align="center"/>
+      <el-table-column prop="name" label="主题名称(中文)" width="200" show-overflow-tooltip align="center"/>
+      <el-table-column prop="theme" label="主题" width="200px" show-overflow-tooltip align="center"/>
       <el-table-column prop="label" label="标签" align="center"/>
       <el-table-column label="风险等级" align="center">
         <template slot-scope="scope">

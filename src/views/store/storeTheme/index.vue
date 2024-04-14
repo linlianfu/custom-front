@@ -55,8 +55,8 @@
               :default-sort="{prop: 'upTime', order: 'descending'}"
               @sort-change="sortChange">
       <el-table-column type="index" width="55" label="序号"/>
-      <el-table-column prop="storeName" label="店铺"/>
-      <el-table-column prop="theme" label="主题"/>
+      <el-table-column prop="storeName" width="170px" label="店铺"/>
+      <el-table-column prop="theme" width="170px" label="主题" show-overflow-tooltip />
       <el-table-column prop="riskType" label="主题风险">
         <template slot-scope="scope">
           {{ parseRiskType(scope.row.riskType) }}
@@ -69,17 +69,23 @@
           <span>{{scope.row.tort === 0 ? '否':'是'}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="tortType" label="侵权类型">
+      <el-table-column prop="tortType" width="150px" label="侵权类型">
         <template slot-scope="scope">
           {{ parseTortType(scope.row.tortType) }}
         </template>
       </el-table-column>
       <el-table-column prop="tortTime" label="侵权时间" sortable="custom"/>
+      <el-table-column prop="tortFraction" label="扣分"/>
       <el-table-column prop="intellectualPropertyName" label="知识产权名称"/>
       <!--<el-table-column label="是否删除"/>-->
       <!--<el-table-column prop="status" label="系统提示">-->
       <!--<span>严重侵权</span>-->
       <!--</el-table-column>-->
+      <el-table-column prop="hasDelete" label="是否删除">
+        <template slot-scope="scope">
+          <span>{{scope.row.hasDelete ? '是':'否'}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="remark" label="备注"/>
       <!--<el-table-column prop="createTime" label="创建时间"/>-->
       <!--<el-table-column prop="createId" label="创建人"/>-->

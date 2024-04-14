@@ -44,8 +44,17 @@
           value-format="yyyy-MM-dd">
         </el-date-picker>
       </el-form-item>
+      <el-form-item label="侵权扣分" prop="tortFraction" v-if="form.tort === 1">
+        <el-input v-model.number="form.tortFraction" style="width: 646px" placeholder="请输入侵权扣分"/>
+      </el-form-item>
       <el-form-item label="知识产权名称" prop="intellectualPropertyName" v-if="form.tort === 1">
         <el-input v-model="form.intellectualPropertyName" style="width: 646px" placeholder="请输入备注"/>
+      </el-form-item>
+      <el-form-item label="是否删除">
+        <el-radio-group v-model="form.hasDelete">
+          <el-radio :label="false">否</el-radio>
+          <el-radio :label="true">是</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="form.remark" style="width: 646px" placeholder="请输入备注"/>
@@ -110,7 +119,9 @@
           // 侵权类型 2、一般侵权 3、资金冻结 4、严重侵权
           tortType: null,
           tortTime: null,
-          intellectualPropertyName:null
+          tortFraction: null,
+          intellectualPropertyName:null,
+          hasDelete: false
         },
         rules: {
           // prop 应该是指表单数据模型（data）中的属性名称。
