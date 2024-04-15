@@ -98,8 +98,8 @@
       >
         <template slot-scope="scope">
           <el-button size="mini" type="primary" icon="el-icon-edit" @click="goCreate(scope.row.id)"/>
-          <el-popover v-model="scope.row.pop" placement="top" width="180" trigger="manual" @show="onPopoverShow"
-                      @hide="onPopoverHide">
+          <el-popover v-model="scope.row.pop" placement="top" width="180" trigger="manual"
+                      :ref="`node-${scope.row.id}`">
             <p>确定删除本条数据吗</p>
             <div style="text-align: right; margin: 0">
               <el-button size="mini" type="text" @click="doCancel(scope.row)">取消</el-button>

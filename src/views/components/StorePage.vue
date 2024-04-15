@@ -1,6 +1,12 @@
 <template>
   <div>
     <div style="max-width: 1000px;margin: 10px auto">
+      <div class="head-container">
+        <el-input v-model="param.storeName" clearable size="medium" placeholder="请输入店铺名称搜索" style="width: 200px;"
+                  class="filter-item"
+                  @keyup.enter.native="refresh"/>
+        <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="refresh">搜索</el-button>
+      </div>
       <el-table ref="table" style="width: 100%;"
                 v-loading="loading" :data="storeList"
                 border
@@ -22,9 +28,11 @@
         >
           <template slot-scope="scope">
             <el-button v-if="currentStoreId !== scope.row.id" size="medium"
-                       type="primary" @click="chooseStore(scope.row)">选择</el-button>
+                       type="primary" @click="chooseStore(scope.row)">选择
+            </el-button>
             <el-button v-if="currentStoreId === scope.row.id" size="medium"
-                       type="warning" @click="cancelChooseStore(scope.row)">取消</el-button>
+                       type="warning" @click="cancelChooseStore(scope.row)">取消
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -61,8 +69,11 @@
           current: 1,
           size: 10,
         },
+        param: {
+          storeName: null
+        },
         currentPage: 1,
-        currentStoreId:null,
+        currentStoreId: null,
         cellStyle({row, column, rowIndex, columnIndex}) {
           return {'text-align': 'center'};
         }
@@ -74,7 +85,7 @@
         this.$emit("chooseStore", data.id, data.storeName);
         this.currentStoreId = data.id
       },
-      cancelChooseStore(data){
+      cancelChooseStore(data) {
         this.$emit("cancelChooseStore", data.id, data.storeName);
         this.currentStoreId = null;
       },
@@ -87,8 +98,11 @@
         this.refresh();
       },
       refresh() {
-        this.loading = true
-        const params = {size: this.pageParam.size, current: this.pageParam.current};
+        this.loading = true;
+        const params = {
+          storeName:this.param.storeName,
+          size: this.pageParam.size,
+          current: this.pageParam.current};
         storeManager.pageStore(params).then(res => {
           this.totalSize = res.totalElements;
           this.storeList = res.content;

@@ -121,7 +121,8 @@
           tortTime: null,
           tortFraction: null,
           intellectualPropertyName:null,
-          hasDelete: false
+          hasDelete: false,
+          remark:null
         },
         rules: {
           // prop 应该是指表单数据模型（data）中的属性名称。
