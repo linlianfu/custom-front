@@ -24,11 +24,11 @@ export function edit(data) {
   })
 }
 
-export function getStoreTheme(id) {
+export function updateStatus(id) {
   return request({
-    url: 'api/storeTheme/getStoreTheme?id='+id,
-    method: 'get'
+    url: 'api/secretKey/updateStatus?id='+id,
+    method: 'put'
   })
 }
 
-export default { add, edit, del ,getStoreTheme}
+export default { add, edit, del ,updateStatus}

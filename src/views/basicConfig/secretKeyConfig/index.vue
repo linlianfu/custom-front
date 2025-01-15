@@ -10,15 +10,20 @@
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="55" align="center"/>
-      <el-table-column prop="name" label="名称" width="200" show-overflow-tooltip align="center"/>
-      <el-table-column prop="secretKey" label="密钥" width="200px" show-overflow-tooltip align="center"/>
+      <el-table-column prop="name" label="名称" width="250" show-overflow-tooltip align="center"/>
+      <el-table-column prop="secretKey" label="密钥" width="250px" show-overflow-tooltip align="center"/>
       <el-table-column prop="deviceNumber" label="设备号" align="center"/>
-      <el-table-column label="状态" align="center">
+      <el-table-column label="状态" align="center" prop="enable">
         <template slot-scope="scope">
-          <span>{{scope.row.enable === 0 ? '停用':'启用'}}</span>
+          <el-switch
+            v-model="scope.row.enable"
+            active-color="#409EFF"
+            inactive-color="#F56C6C"
+            @change="changeEnabled(scope.row, scope.row.enable)"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="expirationDate" label="过期时间" align="center"/>
+
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
@@ -73,27 +78,27 @@
     data() {
       return {
         permission: {
+          add: ['admin', 'user:add'],
+          edit: ['admin', 'user:edit'],
+          del: ['admin', 'user:del']
         },
       }
     },
     methods: {
       // 改变状态
       changeEnabled(data, val) {
-        this.$confirm('此操作将 "' + this.dict.label.job_status[val] + '" ' + data.name + '岗位, 是否继续？', '提示', {
+        this.$confirm('此操作将' + this.dict.label.job_status[val] + ' [ ' + data.secretKey + ' ]密钥, 是否继续？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          // eslint-disable-next-line no-undef
-          crudJob.edit(data).then(() => {
-            // eslint-disable-next-line no-undef
+          crudJob.updateStatus(data.id).then(() => {
             this.crud.notify(this.dict.label.job_status[val] + '成功', 'success')
-          }).catch(err => {
             data.enabled = !data.enabled
+          }).catch(err => {
             console.log(err.data.message)
           })
         }).catch(() => {
-          data.enabled = !data.enabled
         })
       },
     }

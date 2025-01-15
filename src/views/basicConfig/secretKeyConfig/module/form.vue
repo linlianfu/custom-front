@@ -71,11 +71,8 @@
   const defaultForm = {
   id: null,
   name: '',
-  theme: '',
-  label: '',
-  riskType: null,
-  flow: null,
-  remark: '',
+  deviceNumber: '',
+  secretKey: '',
 }
 export default {
   mixins: [form(defaultForm)],
