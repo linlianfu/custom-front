@@ -77,11 +77,7 @@
     dicts: ['job_status'],
     data() {
       return {
-        permission: {
-          add: ['admin', 'user:add'],
-          edit: ['admin', 'user:edit'],
-          del: ['admin', 'user:del']
-        },
+        permission: {},
       }
     },
     methods: {

@@ -35,7 +35,6 @@
       </el-form-item>
       <el-form-item
         label="设备号"
-        prop="deviceNumber"
       >
         <el-input
           v-model="form.deviceNumber"
@@ -84,9 +83,6 @@ export default {
         ],
         secretKey: [
           { required: true, message: '请输入密钥', trigger: 'blur'}
-        ],
-        deviceNumber: [
-          { required: true, message: '请输入设备号', trigger: 'blur' }
         ]
       }
     }
