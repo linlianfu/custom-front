@@ -34,8 +34,25 @@
         />
       </el-form-item>
       <el-form-item
-        label="设备号"
+        label="角色"
+        prop="identityType"
       >
+        <el-radio-group v-model="form.identityType">
+          <el-radio :label="1">管理员</el-radio>
+          <el-radio :label="2">员工</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
+        label="开放网站"
+      >
+        <el-checkbox-group v-model="form.webType" @change="handleWebChange()">
+          <el-checkbox v-for="web in defaultWebList" :key="web.code" :label="web.webSite">
+            {{web.code}}
+          </el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="设备号">
         <el-input
           v-model="form.deviceNumber"
           style="width: 370px;"
@@ -71,12 +88,38 @@
   id: null,
   name: '',
   deviceNumber: '',
+  identityType :null,
   secretKey: '',
+  webType:[]
+
 }
 export default {
   mixins: [form(defaultForm)],
   data() {
     return {
+      defaultWebList:[{
+          code:"TP",
+          webSite:"teepublic"
+        },{
+          code:"TL",
+          webSite:"threadless"
+        },{
+          code:"DB",
+          webSite:"designbyhumans"
+        },{
+          code:"AS",
+          webSite:"artistshot"
+        },{
+          code:"PI",
+          webSite:"pinterest"
+        },{
+          code:"TD",
+          webSite:"tostadora"
+        },{
+          code:"TSP",
+          webSite:"teeshirtpalace"
+        }
+      ],
       rules: {
         name: [
           { required: true, message: '请输入名称', trigger: 'blur' }
@@ -86,6 +129,11 @@ export default {
         ]
       }
     }
+  },
+  methods: {
+    handleWebChange() {
+      console.log(this.form.webType)
+    },
   }
 }
 </script>

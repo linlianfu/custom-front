@@ -12,6 +12,18 @@
       <el-table-column type="index" label="序号" width="55" align="center"/>
       <el-table-column prop="name" label="名称" width="250" show-overflow-tooltip align="center"/>
       <el-table-column prop="secretKey" label="密钥" width="250px" show-overflow-tooltip align="center"/>
+      <el-table-column prop="identityType" label="角色" width="100px" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.identityType === 1 ? '管理员':'员工'}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="webType" label="开放网站" align="center">
+        <template slot-scope="scope">
+          <span v-for="item in scope.row.webType">
+            <span style="margin-left: 10px;font-size: 15px">{{changeValue(item)}}</span>
+          </span>
+        </template>
+      </el-table-column>
       <el-table-column prop="deviceNumber" label="设备号" align="center"/>
       <el-table-column label="状态" align="center" prop="enable">
         <template slot-scope="scope">
@@ -97,6 +109,24 @@
         }).catch(() => {
         })
       },
+      changeValue(item){
+        switch (item){
+          case "teepublic":
+            return "TP";
+          case "threadless":
+            return "TL";
+          case "designbyhumans":
+            return "DB";
+          case "artistshot":
+            return "AS";
+          case "pinterest":
+            return "PI";
+          case "tostadora":
+            return "TD";
+          case "teeshirtpalace":
+            return "TSP";
+        }
+      }
     }
   }
 </script>
