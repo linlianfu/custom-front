@@ -118,6 +118,9 @@ export default {
         },{
           code:"TSP",
           webSite:"teeshirtpalace"
+        },{
+          code:"INK",
+          webSite:"inkspired" //https://www.inkspired.ro/
         }
       ],
       rules: {

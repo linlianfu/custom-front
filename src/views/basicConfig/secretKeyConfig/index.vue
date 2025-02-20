@@ -125,6 +125,8 @@
             return "TD";
           case "teeshirtpalace":
             return "TSP";
+          case "inkspired":
+            return "INK";
         }
       }
     }
