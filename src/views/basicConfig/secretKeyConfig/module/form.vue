@@ -52,12 +52,12 @@
           </el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="设备号">
-        <el-input
-          v-model="form.deviceNumber"
-          style="width: 370px;"
-        />
-      </el-form-item>
+      <!--<el-form-item label="设备号">-->
+        <!--<el-input-->
+          <!--v-model="form.deviceNumber"-->
+          <!--style="width: 370px;"-->
+        <!--/>-->
+      <!--</el-form-item>-->
 
     </el-form>
     <div
