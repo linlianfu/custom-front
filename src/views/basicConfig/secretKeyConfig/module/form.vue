@@ -44,7 +44,7 @@
       </el-form-item>
 
       <el-form-item
-        label="开放网站"
+        label="授权网站"
       >
         <el-checkbox-group v-model="form.webType" @change="handleWebChange()">
           <el-checkbox v-for="web in defaultWebList" :key="web.code" :label="web.webSite">
@@ -52,12 +52,25 @@
           </el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <!--<el-form-item label="设备号">-->
-        <!--<el-input-->
-          <!--v-model="form.deviceNumber"-->
-          <!--style="width: 370px;"-->
-        <!--/>-->
-      <!--</el-form-item>-->
+
+      <el-form-item
+        label="授权图片解析"
+        prop="websiteId"
+      >
+        <el-select
+          v-model="form.authImageParseId"
+          style="width: 370px;"
+          placeholder="请选择授权图片解析"
+          multiple
+        >
+          <el-option
+            v-for="item in imageParseList"
+            :key="item.websiteCode"
+            :label="item.websiteCode"
+            :value="item.id"
+          />
+        </el-select>
+      </el-form-item>
 
     </el-form>
     <div
@@ -83,20 +96,22 @@
 
 <script>
   import {form} from '@crud/crud'
+  import imageParse from '@/api/resource/imageParse'
 
   const defaultForm = {
-  id: null,
-  name: '',
-  deviceNumber: '',
-  identityType :null,
-  secretKey: '',
-  webType:[]
-
+    id: null,
+    name: '',
+    deviceNumber: '',
+    identityType :null,
+    secretKey: '',
+    webType:[],
+    authImageParseId:[]
 }
 export default {
   mixins: [form(defaultForm)],
   data() {
     return {
+      imageParseList:[],
       defaultWebList:[{
           code:"TP",
           webSite:"teepublic"
@@ -137,6 +152,13 @@ export default {
     handleWebChange() {
       console.log(this.form.webType)
     },
+  },
+
+  mounted: function () {
+    imageParse.listImageParse().then(data => {
+      Object.assign(this.imageParseList, data)
+    })
+    debugger
   }
 }
 </script>

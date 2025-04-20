@@ -9,40 +9,9 @@
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;"
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
-      <el-table-column type="index" label="序号" width="55" align="center"/>
-      <el-table-column prop="name" label="名称" width="150" show-overflow-tooltip align="center"/>
-      <el-table-column prop="secretKey" label="密钥" width="150" show-overflow-tooltip align="center"/>
-      <el-table-column prop="identityType" label="角色" width="100px" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.identityType === 1 ? '管理员':'员工'}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="webType" label="授权网站" align="center">
-        <template slot-scope="scope">
-          <span v-for="item in scope.row.webType">
-            <span style="margin-left: 10px;font-size: 15px">{{changeValue(item)}}</span>
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="authImageParse" label="授权图片解析" align="center">
-        <template slot-scope="scope">
-          <span v-for="item in scope.row.authImageParse">
-            <span style="margin-left: 10px;font-size: 15px">{{item.websiteCode}}</span>
-          </span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="deviceNumber" label="设备号" align="center" width="150px"/>
-      <el-table-column label="状态" align="center" prop="enable">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.enable"
-            active-color="#409EFF"
-            inactive-color="#F56C6C"
-            @change="changeEnabled(scope.row, scope.row.enable)"
-          />
-        </template>
-      </el-table-column>
-
+      <el-table-column type="index" label="序号" width="100" align="center"/>
+      <el-table-column prop="code" label="网站" show-overflow-tooltip align="center"/>
+      <el-table-column prop="address" label="网址" show-overflow-tooltip align="center"/>
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
@@ -66,7 +35,7 @@
 </template>
 
 <script>
-  import crudJob from '@/api/basicConfig/secretKeyConfig'
+  import crudJob from '@/api/resource/website'
   import eHeader from './module/header'
   import eForm from './module/form'
   import CRUD, {presenter} from '@crud/crud'
@@ -75,12 +44,12 @@
   import udOperation from '@crud/UD.operation'
 
   export default {
-    name: 'SecretKeyConfig',
+    name: 'Website',
     components: {eHeader, eForm, crudOperation, pagination, udOperation},
     cruds() {
       return CRUD({
-        title: '密钥配置',
-        url: '/api/secretKey/page',
+        title: '网站管理',
+        url: '/api/website/page',
         crudMethod: {...crudJob},
         optShow: {
           add: true,
