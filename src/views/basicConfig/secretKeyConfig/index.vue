@@ -20,7 +20,7 @@
       <el-table-column prop="webType" label="授权网站" align="center">
         <template slot-scope="scope">
           <span v-for="item in scope.row.webType">
-            <span style="margin-left: 10px;font-size: 15px">{{changeValue(item)}}</span>
+            <span style="margin-left: 10px;font-size: 15px">{{item}}</span>
           </span>
         </template>
       </el-table-column>
@@ -116,25 +116,13 @@
         }).catch(() => {
         })
       },
-      changeValue(item){
-        switch (item){
-          case "teepublic":
-            return "TP";
-          case "threadless":
-            return "TL";
-          case "designbyhumans":
-            return "DB";
-          case "artistshot":
-            return "AS";
-          case "pinterest":
-            return "PI";
-          case "tostadora":
-            return "TD";
-          case "teeshirtpalace":
-            return "TSP";
-          case "inkspired":
-            return "INK";
-        }
+      // 回调钩子函数
+      [CRUD.HOOK.beforeToEdit](crud, form) {
+        form.authImageParseId = []
+        form.authImageParse.forEach(function(imageParse, index) {
+          form.authImageParseId.push(imageParse.id)
+        })
+        debugger
       }
     }
   }

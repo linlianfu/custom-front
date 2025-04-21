@@ -47,7 +47,7 @@
         label="授权网站"
       >
         <el-checkbox-group v-model="form.webType" @change="handleWebChange()">
-          <el-checkbox v-for="web in defaultWebList" :key="web.code" :label="web.webSite">
+          <el-checkbox v-for="web in defaultWebList" :key="web.code" :label="web.code">
             {{web.code}}
           </el-checkbox>
         </el-checkbox-group>
@@ -65,7 +65,7 @@
         >
           <el-option
             v-for="item in imageParseList"
-            :key="item.websiteCode"
+            :key="item.id"
             :label="item.websiteCode"
             :value="item.id"
           />
@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     handleWebChange() {
-      console.log(this.form.webType)
+      // console.log(this.form.webType)
     },
   },
 
@@ -158,7 +158,6 @@ export default {
     imageParse.listImageParse().then(data => {
       Object.assign(this.imageParseList, data)
     })
-    debugger
   }
 }
 </script>

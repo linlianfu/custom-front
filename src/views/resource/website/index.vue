@@ -85,26 +85,6 @@
         }).catch(() => {
         })
       },
-      changeValue(item){
-        switch (item){
-          case "teepublic":
-            return "TP";
-          case "threadless":
-            return "TL";
-          case "designbyhumans":
-            return "DB";
-          case "artistshot":
-            return "AS";
-          case "pinterest":
-            return "PI";
-          case "tostadora":
-            return "TD";
-          case "teeshirtpalace":
-            return "TSP";
-          case "inkspired":
-            return "INK";
-        }
-      }
     }
   }
 </script>
