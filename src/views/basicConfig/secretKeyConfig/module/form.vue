@@ -5,7 +5,7 @@
     :before-close="crud.cancelCU"
     :visible="crud.status.cu > 0"
     :title="crud.status.title"
-    width="1000px"
+    width="800px"
   >
     <el-form
       ref="form"
@@ -66,7 +66,7 @@
           <el-option
             v-for="item in imageParseList"
             :key="item.id"
-            :label="item.websiteCode"
+            :label="item.parseName"
             :value="item.id"
           />
         </el-select>
@@ -75,7 +75,7 @@
     </el-form>
     <div
       slot="footer"
-      class="dialog-footer"
+      class="dialog-footer" align="center"
     >
       <el-button
         type="text"

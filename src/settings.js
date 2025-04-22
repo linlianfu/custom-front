@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'Super Custom',
+  title: '三巨头',
   /**
    * @description 是否显示 tagsView
    */

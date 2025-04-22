@@ -10,8 +10,14 @@
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="100" align="center"/>
+      <el-table-column prop="parseName" label="解析名称" show-overflow-tooltip align="center"/>
       <el-table-column prop="websiteCode" label="网站" show-overflow-tooltip align="center"/>
-      <el-table-column prop="parseUrl" label="解析地址" show-overflow-tooltip align="center"/>
+      <!--<el-table-column prop="parseUrl" label="解析地址" show-overflow-tooltip align="center"/>-->
+      <el-table-column prop="parseUrl" label="解析地址" show-overflow-tooltip align="center">
+        <template slot-scope="scope">
+          <a :href="`${scope.row.parseUrl}`" target="_blank" style="color: blue">{{scope.row.parseUrl}}</a>
+        </template>
+      </el-table-column>
       <el-table-column prop="parseType" label="解析类型" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.parseType === 1 ? 'PNG':'JPG'}}</span>

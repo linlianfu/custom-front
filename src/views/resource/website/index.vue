@@ -11,7 +11,11 @@
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="100" align="center"/>
       <el-table-column prop="code" label="网站" show-overflow-tooltip align="center"/>
-      <el-table-column prop="address" label="网址" show-overflow-tooltip align="center"/>
+      <el-table-column prop="address" label="网址" show-overflow-tooltip align="center">
+        <template slot-scope="scope">
+          <a :href="`${scope.row.address}`" target="_blank" style="color: blue">{{scope.row.address}}</a>
+        </template>
+      </el-table-column>
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"

@@ -26,7 +26,7 @@
   },
   data() {
     return {
-      title: 'Super Custom 管理系统',
+      title: '三巨头管理系统',
       logo: Logo
     }
   }

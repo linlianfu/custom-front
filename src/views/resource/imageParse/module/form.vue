@@ -5,7 +5,7 @@
     :before-close="crud.cancelCU"
     :visible="crud.status.cu > 0"
     :title="crud.status.title"
-    width="1000px"
+    width="800px"
   >
     <el-form
       ref="form"
@@ -14,6 +14,15 @@
       size="medium"
       label-width="180px"
     >
+      <el-form-item
+        label="解析名称"
+        prop="parseName"
+      >
+        <el-input
+          v-model="form.parseName"
+          style="width: 370px;"
+        />
+      </el-form-item>
       <el-form-item
         label="网站"
         prop="websiteId"
@@ -46,16 +55,13 @@
         label="解析地址"
         prop="parseUrl"
       >
-        <el-input
-          v-model="form.parseUrl"
-          style="width: 370px;"
-        />
+        <el-input v-model="form.parseUrl" style="width: 370px;" rows="5" type="textarea" />
       </el-form-item>
 
     </el-form>
     <div
       slot="footer"
-      class="dialog-footer"
+      class="dialog-footer" align="center"
     >
       <el-button
         type="text"
@@ -80,6 +86,7 @@
 
   const defaultForm = {
     id: null,
+    parseName: '',
     code: '',
     websiteId: '',
     parseUrl: '',
@@ -97,6 +104,9 @@ export default {
         ],
         parseUrl: [
           { required: true, message: '请输入网址', trigger: 'blur'}
+        ],
+        parseName: [
+          { required: true, message: '请输入解析名称', trigger: 'blur'}
         ],
         parseType: [
           { required: true, message: '请输选择解析类型', trigger: 'blur'}

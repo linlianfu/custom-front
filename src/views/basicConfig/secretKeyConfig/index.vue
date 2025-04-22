@@ -27,12 +27,12 @@
       <el-table-column prop="authImageParse" label="授权图片解析" align="center">
         <template slot-scope="scope">
           <span v-for="item in scope.row.authImageParse">
-            <span style="margin-left: 10px;font-size: 15px">{{item.websiteCode}}</span>
+            <span style="margin-left: 10px;font-size: 15px">{{item.parseName}}</span>
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="deviceNumber" label="设备号" align="center" width="150px"/>
-      <el-table-column label="状态" align="center" prop="enable">
+      <el-table-column prop="deviceNumber" label="设备号" align="center" width="190px"/>
+      <el-table-column label="状态" align="center" prop="enable"width="85">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.enable"

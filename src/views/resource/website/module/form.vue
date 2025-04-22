@@ -5,7 +5,7 @@
     :before-close="crud.cancelCU"
     :visible="crud.status.cu > 0"
     :title="crud.status.title"
-    width="1000px"
+    width="800px"
   >
     <el-form
       ref="form"
@@ -37,7 +37,7 @@
     </el-form>
     <div
       slot="footer"
-      class="dialog-footer"
+      class="dialog-footer"align="center"
     >
       <el-button
         type="text"
