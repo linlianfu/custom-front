@@ -6,7 +6,7 @@
       <crudOperation :permission="permission"/>
     </div>
     <!--表格渲染-->
-    <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;"
+    <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;font-size: 14px"
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px','text-align':'center'}"
               :cell-style="cellStyle">

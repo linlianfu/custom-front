@@ -6,14 +6,20 @@
       <crudOperation :permission="permission"/>
     </div>
     <!--表格渲染-->
-    <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;"
+    <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;font-size: 14px"
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="100" align="center"/>
-      <el-table-column prop="code" label="网站" show-overflow-tooltip align="center"/>
+      <el-table-column prop="siteName" label="网站名称" show-overflow-tooltip align="center"/>
+      <el-table-column prop="code" label="网站标识" show-overflow-tooltip align="center"/>
       <el-table-column prop="address" label="网址" show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <a :href="`${scope.row.address}`" target="_blank" style="color: blue">{{scope.row.address}}</a>
+        </template>
+      </el-table-column>
+      <el-table-column label="图片像素" show-overflow-tooltip align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.pixelLength}}*{{scope.row.pixelWidth}} px</span>
         </template>
       </el-table-column>
       <!--   编辑与删除   -->

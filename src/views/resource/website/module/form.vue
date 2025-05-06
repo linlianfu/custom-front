@@ -15,6 +15,16 @@
       label-width="180px"
     >
       <el-form-item
+        label="网站名称"
+        prop="siteName"
+      >
+        <el-input
+          v-model="form.siteName"
+          style="width: 370px;"
+        />
+      </el-form-item>
+
+      <el-form-item
         label="网站标识"
         prop="code"
       >
@@ -32,6 +42,12 @@
           v-model="form.address"
           style="width: 370px;"
         />
+      </el-form-item>
+      <el-form-item label="图片像素长度" prop="pixelLength">
+        <el-input v-model.number="form.pixelLength" style="width: 370px" placeholder="请输入图片像素长度"/>
+      </el-form-item>
+      <el-form-item label="图片像素宽度" prop="pixelWidth">
+        <el-input v-model.number="form.pixelWidth" style="width: 370px" placeholder="请输入图片像素宽度"/>
       </el-form-item>
 
     </el-form>
@@ -61,6 +77,7 @@
 
   const defaultForm = {
   id: null,
+  siteName: '',
   code: '',
   address: ''
 }
@@ -69,12 +86,21 @@ export default {
   data() {
     return {
       rules: {
+        siteName: [
+          { required: true, message: '请输入网站名称', trigger: 'blur' }
+        ],
         code: [
           { required: true, message: '请输入网站标识', trigger: 'blur' }
         ],
         address: [
           { required: true, message: '请输入网址', trigger: 'blur'}
-        ]
+        ],
+        pixelLength: [
+          {required: true, message: '请输入像素大小', trigger: 'blur', type: 'number'}
+        ],
+        pixelWidth: [
+          {required: true, message: '请输入像素大小', trigger: 'blur', type: 'number'}
+        ],
       }
     }
   },

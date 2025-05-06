@@ -136,7 +136,10 @@ export default {
         },{
           code:"INK",
           webSite:"inkspired" //https://www.inkspired.ro/
-        }
+        },{
+        code:"RDB",
+        webSite:"redbubble" //https://www.redbubble.ro/
+      }
       ],
       rules: {
         name: [
