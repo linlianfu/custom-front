@@ -96,10 +96,10 @@ export default {
           { required: true, message: '请输入网址', trigger: 'blur'}
         ],
         pixelLength: [
-          {required: true, message: '请输入像素大小', trigger: 'blur', type: 'number'}
+          {required: true, message: '请输入像素大小', trigger: 'blur'}
         ],
         pixelWidth: [
-          {required: true, message: '请输入像素大小', trigger: 'blur', type: 'number'}
+          {required: true, message: '请输入像素大小', trigger: 'blur'}
         ],
       }
     }

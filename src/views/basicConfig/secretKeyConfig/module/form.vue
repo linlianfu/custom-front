@@ -54,6 +54,24 @@
       </el-form-item>
 
       <el-form-item
+        label="授权预览图片解析"
+        prop="websiteId"
+      >
+        <el-select
+          v-model="form.previewImageParseId"
+          style="width: 370px;"
+          placeholder="请选择授权预览图片解析"
+          multiple
+        >
+          <el-option
+            v-for="item in imageParseList"
+            :key="item.id"
+            :label="item.parseName"
+            :value="item.id"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item
         label="授权图片解析"
         prop="websiteId"
       >
@@ -105,13 +123,15 @@
     identityType :null,
     secretKey: '',
     webType:[],
-    authImageParseId:[]
+    authImageParseId:[],
+    previewImageParseId:[]
 }
 export default {
   mixins: [form(defaultForm)],
   data() {
     return {
       imageParseList:[],
+      previewImageParseList:[],
       defaultWebList:[{
           code:"TP",
           webSite:"teepublic"

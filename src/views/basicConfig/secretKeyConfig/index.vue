@@ -24,7 +24,14 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="authImageParse" label="授权图片解析" align="center">
+      <el-table-column prop="previewImageParse" label="预览图片解析" align="center">
+        <template slot-scope="scope">
+          <span v-for="item in scope.row.previewImageParse">
+            <span style="margin-left: 10px;font-size: 15px">{{item.parseName}}</span>
+          </span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="authImageParse" label="下载图片解析" align="center">
         <template slot-scope="scope">
           <span v-for="item in scope.row.authImageParse">
             <span style="margin-left: 10px;font-size: 15px">{{item.parseName}}</span>
@@ -119,10 +126,13 @@
       // 回调钩子函数
       [CRUD.HOOK.beforeToEdit](crud, form) {
         form.authImageParseId = []
+        form.previewImageParseId = []
         form.authImageParse.forEach(function(imageParse, index) {
           form.authImageParseId.push(imageParse.id)
         })
-        debugger
+        form.previewImageParse.forEach(function(imageParse, index) {
+          form.previewImageParseId.push(imageParse.id)
+        })
       }
     }
   }
