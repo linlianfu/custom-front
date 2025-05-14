@@ -44,6 +44,16 @@
       </el-form-item>
 
       <el-form-item
+        label="归属"
+        prop="belong"
+      >
+        <el-radio-group v-model="form.belong">
+          <el-radio :label="1">内部</el-radio>
+          <el-radio :label="2">外部</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
         label="授权网站"
       >
         <el-checkbox-group v-model="form.webType" @change="handleWebChange()">
@@ -121,6 +131,7 @@
     name: '',
     deviceNumber: '',
     identityType :null,
+    belong :null,
     secretKey: '',
     webType:[],
     authImageParseId:[],

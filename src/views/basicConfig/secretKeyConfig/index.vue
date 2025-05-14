@@ -17,6 +17,12 @@
           <span>{{scope.row.identityType === 1 ? '管理员':'员工'}}</span>
         </template>
       </el-table-column>
+
+      <el-table-column prop="belong" label="归属" width="100px" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.belong === 1 ? '内部':'外部'}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="webType" label="授权网站" align="center">
         <template slot-scope="scope">
           <span v-for="item in scope.row.webType">

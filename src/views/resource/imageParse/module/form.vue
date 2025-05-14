@@ -52,6 +52,17 @@
       </el-form-item>
 
       <el-form-item
+        label="可用范围"
+        prop="availableRange"
+      >
+        <el-radio-group v-model="form.availableRange">
+          <el-radio :label="-1">不限</el-radio>
+          <el-radio :label="1">内部</el-radio>
+          <el-radio :label="2">外部</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
         label="解析地址"
         prop="parseUrl"
       >
@@ -110,6 +121,9 @@ export default {
         ],
         parseType: [
           { required: true, message: '请输选择解析类型', trigger: 'blur'}
+        ],
+        availableRange: [
+          { required: true, message: '请输选择可用范围', trigger: 'blur'}
         ]
       }
     }
