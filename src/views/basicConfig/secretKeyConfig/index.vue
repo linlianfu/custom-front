@@ -25,23 +25,23 @@
       </el-table-column>
       <el-table-column prop="webType" label="授权网站" align="center">
         <template slot-scope="scope">
-          <span v-for="item in scope.row.webType">
-            <span style="margin-left: 10px;font-size: 15px">{{item}}</span>
-          </span>
+          <div v-for="item in scope.row.webType">
+            <p style="margin-left: 10px;font-size: 15px">{{item}}</p>
+          </div>
         </template>
       </el-table-column>
       <el-table-column prop="previewImageParse" label="预览图片解析" align="center">
         <template slot-scope="scope">
-          <span v-for="item in scope.row.previewImageParse">
-            <span style="margin-left: 10px;font-size: 15px">{{item.parseName}}</span>
-          </span>
+          <div v-for="item in scope.row.previewImageParse">
+            <p style="font-size: 15px">{{item.parseName}}</p>
+          </div>
         </template>
       </el-table-column>
       <el-table-column prop="authImageParse" label="下载图片解析" align="center">
         <template slot-scope="scope">
-          <span v-for="item in scope.row.authImageParse">
-            <span style="margin-left: 10px;font-size: 15px">{{item.parseName}}</span>
-          </span>
+          <div v-for="item in scope.row.authImageParse">
+            <p style="font-size: 15px">{{item.parseName}}</p>
+          </div>
         </template>
       </el-table-column>
       <el-table-column prop="deviceNumber" label="设备号" align="center" width="190px"/>

@@ -10,25 +10,25 @@
               @selection-change="crud.selectionChangeHandler"
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="100" align="center"/>
-      <el-table-column prop="parseName" label="解析名称" show-overflow-tooltip align="center"/>
-      <el-table-column prop="websiteCode" label="网站" show-overflow-tooltip align="center"/>
+      <el-table-column prop="parseName" label="解析名称" width="270px" show-overflow-tooltip align="center"/>
+      <el-table-column prop="websiteCode" label="网站" width="180px" show-overflow-tooltip align="center"/>
       <!--<el-table-column prop="parseUrl" label="解析地址" show-overflow-tooltip align="center"/>-->
-      <el-table-column prop="parseUrl" label="解析地址" show-overflow-tooltip align="center">
+      <el-table-column prop="parseUrl" label="解析地址"  show-overflow-tooltip align="center">
         <template slot-scope="scope">
           <a :href="`${scope.row.parseUrl}`" target="_blank" style="color: blue">{{scope.row.parseUrl}}</a>
         </template>
       </el-table-column>
-      <el-table-column prop="parseType" label="解析类型" align="center" width="100px">
+      <el-table-column prop="parseType" label="解析类型" align="center" width="180px">
         <template slot-scope="scope">
           <span>{{scope.row.parseType === 1 ? 'PNG':'JPG'}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="availableRange" label="可用范围" align="center" width="100px">
+      <el-table-column prop="availableRange" label="可用范围" align="center" width="180px">
         <template slot-scope="scope">
           <span>{{scope.row.availableRange === -1 ? '不限':scope.row.availableRange === 1 ? '内部':'外部'}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="authUserCount" label="已授权用户数" show-overflow-tooltip align="center" width="120px"/>
+      <el-table-column prop="authUserCount" label="已授权用户数" show-overflow-tooltip align="center" width="180px"/>
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"
