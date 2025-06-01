@@ -54,6 +54,26 @@
       </el-form-item>
 
       <el-form-item
+        label="展示规则内容"
+        prop="belong"
+      >
+        <el-radio-group v-model="form.permissionGroup.showRuleContent">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
+        label="展示自定义规则"
+        prop="belong"
+      >
+        <el-radio-group v-model="form.permissionGroup.showCustomRule">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item
         label="授权网站"
       >
         <el-checkbox-group v-model="form.webType" @change="handleWebChange()">
@@ -135,6 +155,10 @@
     secretKey: '',
     webType:[],
     authImageParseId:[],
+    permissionGroup:{
+      showRuleContent:null,
+      showCustomRule:null
+    },
     previewImageParseId:[]
 }
 export default {
@@ -169,6 +193,9 @@ export default {
           webSite:"inkspired" //https://www.inkspired.ro/
         },{
         code:"RDB",
+        webSite:"redbubble" //https://www.redbubble.ro/
+      },{
+        code:"RDB_ART",
         webSite:"redbubble" //https://www.redbubble.ro/
       }
       ],

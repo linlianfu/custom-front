@@ -45,6 +45,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="deviceNumber" label="设备号" align="center" width="190px"/>
+      <el-table-column prop="lastLoginTime" label="最后登录时间" align="center" width="190px"/>
       <el-table-column label="状态" align="center" prop="enable"width="85">
         <template slot-scope="scope">
           <el-switch
