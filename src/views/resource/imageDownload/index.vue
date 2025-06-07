@@ -11,12 +11,15 @@
               border :header-cell-style="{background:'#f4f9f4', fontFamily:'Helvetica',fontSize:'14px'}">
       <el-table-column type="index" label="序号" width="100" align="center"/>
       <el-table-column prop="userName" label="用户" width="270px" show-overflow-tooltip align="center"/>
+      <el-table-column prop="website.siteName" label="网站" width="170px" show-overflow-tooltip align="center"/>
+
       <el-table-column prop="imageTitle" label="标题"  show-overflow-tooltip align="center"/>
       <el-table-column label="图片" show-overflow-tooltip align="center" width="200px">
         <template slot-scope="scope">
           <img :src="`${scope.row.imageUrl}`" target="_blank" width="100px" height="100px" />
         </template>
       </el-table-column>
+      <el-table-column prop="createTime" label="下载时间" width="270px" show-overflow-tooltip align="center"/>
       <!--   编辑与删除   -->
       <el-table-column
         label="操作"

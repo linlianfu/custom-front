@@ -57,11 +57,6 @@
       <el-table-column type="index" width="55" label="序号"/>
       <el-table-column prop="ruleName"  label="字符替换名称"/>
       <el-table-column prop="website" label="网站" show-overflow-tooltip />
-      <el-table-column label="是否可用">
-        <template slot-scope="scope">
-          <span>{{scope.row.enable ? '否':'是'}}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="替换规则">
         <template slot-scope="scope">
           <p v-for="item in scope.row.characterReplaceGroup" :key="item.value" :label="item.label" :value="item.value">
@@ -73,6 +68,16 @@
               {{item.newCharacter}}
             </span>
           </p>
+        </template>
+      </el-table-column>
+      <el-table-column label="状态" align="center" prop="enable"width="85">
+        <template slot-scope="scope">
+          <el-switch
+            v-model="scope.row.enable"
+            active-color="#409EFF"
+            inactive-color="#F56C6C"
+            @change="changeEnabled(scope.row, scope.row.enable)"
+          />
         </template>
       </el-table-column>
       <!--   编辑与删除   -->
@@ -129,6 +134,8 @@
       })
     },
     mixins: [presenter()],
+    // 数据字典
+    dicts: ['job_status'],
 
     data() {
       return {
@@ -212,6 +219,22 @@
 
         this.crud.query.sortField = sortField.prop
         this.crud.toQuery();
+      },
+
+      changeEnabled(data, val) {
+        this.$confirm('此操作将' + this.dict.label.job_status[val] + ' [ ' + data.ruleName + ' ]规则, 是否继续？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          crudCharacterReplaceRule.updateStatus(data.id).then(() => {
+            this.crud.notify(this.dict.label.job_status[val] + '成功', 'success')
+            data.enabled = !data.enabled
+          }).catch(err => {
+            console.log(err.data.message)
+          })
+        }).catch(() => {
+        })
       },
       /**
        * 解析侵权类型

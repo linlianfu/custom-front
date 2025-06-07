@@ -30,5 +30,11 @@ export function getCharacterReplaceRule(id) {
     method: 'get'
   })
 }
+export function updateStatus(id) {
+  return request({
+    url: 'api/characterReplaceRule/updateStatus?id='+id,
+    method: 'put'
+  })
+}
 
-export default { add, edit, del ,getCharacterReplaceRule}
+export default { add, edit, del ,getCharacterReplaceRule,updateStatus}
