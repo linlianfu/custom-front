@@ -25,7 +25,7 @@
       </el-form-item>
 
       <el-form-item
-        label="密钥"
+        label="Token"
         prop="secretKey"
       >
         <el-input

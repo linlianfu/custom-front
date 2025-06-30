@@ -31,4 +31,11 @@ export function updateStatus(id) {
   })
 }
 
-export default { add, edit, del ,updateStatus}
+export function resetDeviceNumber(id) {
+  return request({
+    url: 'api/secretKey/resetDeviceNumber?id='+id,
+    method: 'put'
+  })
+}
+
+export default { add, edit, del ,updateStatus,resetDeviceNumber}
